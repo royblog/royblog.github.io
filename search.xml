@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[iOS Books]]></title>
+      <url>%2F2017%2F04%2F13%2FiOS-Books%2F</url>
+      <content type="text"><![CDATA[刚才整理电脑，在某个很久很久没被我光顾的角落里，静静地躺着几本书。虽然这些书稍微有点落后，并且从网上也能找到相关资源，但是也厚着脸皮拿出来和大家共享一下吧，书不多，等有时间，把相关题材的书籍再统一整理，后续更新一下。 iOS开发指南：从零基础到APP Store上架，第二版）iOS网络编程与云端应用最佳实践企业级iOS应用开发实战object_c编程之道iOS设计模式解析]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[Python Books]]></title>
       <url>%2F2017%2F04%2F13%2FPython-Books%2F</url>
       <content type="text"><![CDATA[在此和大家分享几本和Python相关的书籍，其中有基本教程，核心教程，也有和网络爬虫和黑客相关的书籍。 Python网络数据采集教程，包含汉化版和英文原版 Python网络数据采集汉化版 Python网络数据采集英文版 Python基础教程第二版，和核心教程第三版 Python基础教程，第二版 Python核心教程，第三版 Python黑客教程，包含汉化版和英文版 Python绝技，运用python成为顶级黑客，汉化版 Python绝技，运用python称为顶级黑客，英文版]]></content>
