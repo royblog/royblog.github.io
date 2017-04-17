@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[Swift UnderLine]]></title>
+      <url>%2F2017%2F04%2F17%2FSwift-UnderLine%2F</url>
+      <content type="text"><![CDATA[在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, "Not Found")let(_, errorMessage) = http404Error 3.忽略区间值123456let base = 3let power = 10var answer = 1for _ in 1...power &#123; answer *= base&#125; 4.忽略外部参数名123456789func cal(num1: Int, num2: Int) -&gt; Int &#123;return num1 + num2&#125;cal(num1: 15, num2: 15)func sum(_ num1: Int, _ num2: Int) -&gt; Int &#123;return num1 + num2&#125;sum(15, 15) 参考：@Author:twlkyao]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[My Family]]></title>
       <url>%2F2017%2F04%2F14%2FMy-Family%2F</url>
       <content type="text"><![CDATA[本来想实现一个相册，来存储照片，无奈水平比较渣，又懒于查资料整理，就以一种比较丑陋的方式来展示图片，为了防止大家的涂抹星子飞来，我决定不开评论功能了，哈哈，我太明智了。 1能认出我的人，奖励一颗超级无敌泡泡糖。 1杭州爬山。 1和家里小伙伴的合影 1这张是全家福 1这张拍于某年某月某一天的照片]]></content>
