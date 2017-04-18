@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Swift,Underline," />
+  <meta name="keywords" content="iOS,Swift,Define," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, &quot;Not Found&quot;)let(_, errorMessage)">
-<meta name="keywords" content="iOS,Swift,Underline">
+<meta name="description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
+<meta name="keywords" content="iOS,Swift,Define">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Underline">
-<meta property="og:url" content="http://yoursite.com/2017/04/17/Swift-UnderLine/index.html">
+<meta property="og:title" content="Swift Define">
+<meta property="og:url" content="http://yoursite.com/2017/04/18/Swift-Define/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, &quot;Not Found&quot;)let(_, errorMessage)">
-<meta property="og:updated_time" content="2017-04-17T03:44:19.000Z">
+<meta property="og:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
+<meta property="og:updated_time" content="2017-04-18T09:37:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift Underline">
-<meta name="twitter:description" content="在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, &quot;Not Found&quot;)let(_, errorMessage)">
+<meta name="twitter:title" content="Swift Define">
+<meta name="twitter:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/17/Swift-UnderLine/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/18/Swift-Define/"/>
 
 
 
 
 
-  <title> Swift Underline | Roy's Note </title>
+  <title> Swift Define | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/Swift-UnderLine/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/18/Swift-Define/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Swift Underline
+                Swift Define
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T11:20:46+08:00">
-                2017-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T17:19:37+08:00">
+                2017-04-18
               </time>
             
 
@@ -374,12 +374,15 @@
       
 
       
-        <p>在Swift中下划线用途多样，下面列举几种常见用法。</p>
-<h2 id="1-格式化数字字面量"><a href="#1-格式化数字字面量" class="headerlink" title="1.格式化数字字面量"></a>1.格式化数字字面量</h2><p>提高数字字面量的可读性。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> oneMillion = 1_000_000 //(is equal to 1,000,000)</div></pre></td></tr></table></figure></p>
-<h2 id="2-忽略元组元素值"><a href="#2-忽略元组元素值" class="headerlink" title="2.忽略元组元素值"></a>2.忽略元组元素值</h2><p>使用元组时，有元素不必使用时，可以使用下划线将元素忽略。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> http404Error = (404, <span class="string">"Not Found"</span>)</div><div class="line"><span class="built_in">let</span>(_, errorMessage) = http404Error</div></pre></td></tr></table></figure></p>
-<h2 id="3-忽略区间值"><a href="#3-忽略区间值" class="headerlink" title="3.忽略区间值"></a>3.忽略区间值</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> base = 3</div><div class="line"><span class="built_in">let</span> power = 10</div><div class="line">var answer = 1</div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> 1...power &#123;</div><div class="line">   answer *= base</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="4-忽略外部参数名"><a href="#4-忽略外部参数名" class="headerlink" title="4.忽略外部参数名"></a>4.忽略外部参数名</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func cal(num1: Int, num2: Int) -&gt; Int &#123;</div><div class="line"><span class="built_in">return</span> num1 + num2</div><div class="line">&#125;</div><div class="line">cal(num1: 15, num2: 15)</div><div class="line"></div><div class="line">func sum(_ num1: Int, _ num2: Int) -&gt; Int &#123;</div><div class="line"><span class="built_in">return</span> num1 + num2</div><div class="line">&#125;</div><div class="line">sum(15, 15)</div></pre></td></tr></table></figure>
-<p>参考：<a href="http://blog.csdn.net/twlkyao" target="_blank" rel="external">@Author:twlkyao</a></p>
+        <p>宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。<br>在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。</p>
+<h3 id="没有参数的宏"><a href="#没有参数的宏" class="headerlink" title="没有参数的宏"></a>没有参数的宏</h3><p>在OC中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define kScreenHeight     [UIScreen mainScreen].bounds.size.height</span></div><div class="line"><span class="comment">#define kScreenWidth      [UIScreen mainScreen].bounds.size.width</span></div></pre></td></tr></table></figure>
+<p>在Swift中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> kScreenHeight = UIScreen.mainScreen().bounds.size.height</div><div class="line"><span class="built_in">let</span> kScreenWidth = UIScreen.mainScreen().bounds.size.width</div></pre></td></tr></table></figure>
+<h3 id="接收参数的宏"><a href="#接收参数的宏" class="headerlink" title="接收参数的宏"></a>接收参数的宏</h3><p>在OC中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]</span></div></pre></td></tr></table></figure>
+<p>在Swift中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor</div><div class="line">&#123;</div><div class="line"><span class="built_in">return</span> UIColor(red: (r)/255.0, green: (g)/255.0, blue: </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -413,7 +416,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/Underline/" rel="tag"># Underline</a>
+            <a href="/tags/Define/" rel="tag"># Define</a>
           
         </div>
       
@@ -426,18 +429,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/17/Swift-Generic-Base/" rel="next" title="Swift Generic Base">
-                <i class="fa fa-chevron-left"></i> Swift Generic Base
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/14/My-Family/" rel="prev" title="My Family">
-                My Family <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/18/Swift-Lock/" rel="prev" title="Swift Lock">
+                Swift Lock <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +566,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-格式化数字字面量"><span class="nav-number">1.</span> <span class="nav-text">1.格式化数字字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-忽略元组元素值"><span class="nav-number">2.</span> <span class="nav-text">2.忽略元组元素值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-忽略区间值"><span class="nav-number">3.</span> <span class="nav-text">3.忽略区间值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-忽略外部参数名"><span class="nav-number">4.</span> <span class="nav-text">4.忽略外部参数名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#没有参数的宏"><span class="nav-number">1.</span> <span class="nav-text">没有参数的宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收参数的宏"><span class="nav-number">2.</span> <span class="nav-text">接收参数的宏</span></a></li></ol></div>
             
 
           </div>

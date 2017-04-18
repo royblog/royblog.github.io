@@ -3,6 +3,13 @@
   
     
     <entry>
+      <title><![CDATA[Swift Define]]></title>
+      <url>%2F2017%2F04%2F18%2FSwift-Define%2F</url>
+      <content type="text"><![CDATA[宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight [UIScreen mainScreen].bounds.size.height#define kScreenWidth [UIScreen mainScreen].bounds.size.width 在Swift中 12let kScreenHeight = UIScreen.mainScreen().bounds.size.heightlet kScreenWidth = UIScreen.mainScreen().bounds.size.width 接收参数的宏在OC中 1#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1] 在Swift中 1234func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor&#123;return UIColor(red: (r)/255.0, green: (g)/255.0, blue: &#125;]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[Swift Lock]]></title>
       <url>%2F2017%2F04%2F18%2FSwift-Lock%2F</url>
       <content type="text"><![CDATA[在不同线程中安全的访问同一资源，需要为资源加上线程锁，否则多个线程访问同一资源，会导致结果不可预测。在OC中使用@synchronized为资源加锁，但是在Swift中这个方法已经不存在了。@synchronized幕后所做的工作是调用objc_sync中的objc_sync_enter和objc_sync_exit方法。在Swift中lock一个变量可以使用：1234func myMethod(anObj: AnyObject!) &#123;objc_sync_enter(anObj)//在enter 和 exit 之间 anObj不会被其它线程改变objc_sync_exit(anObj) 加锁和解锁都需要消耗性能，我们不可能为所有方法都加上锁，并且在App中涉及多线程部分有限，也没有必要为所有东西加锁。过多的锁没有意义，不但会消耗性能，也有可能会导致死锁问题。在处理多线程时，尽量保持简单。 Swift Lock]]></content>
