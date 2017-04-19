@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo,Github," />
+  <meta name="keywords" content="iOS,Swift,GCD," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
-<meta name="keywords" content="Hexo,Github">
+<meta name="description" content="GCDGrand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。 基本概念 进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间">
+<meta name="keywords" content="iOS,Swift,GCD">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/12/hello-world/index.html">
+<meta property="og:title" content="Swift GCD">
+<meta property="og:url" content="http://yoursite.com/2017/04/19/Swift-GCD/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
-<meta property="og:updated_time" content="2017-04-14T12:47:48.000Z">
+<meta property="og:description" content="GCDGrand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。 基本概念 进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间">
+<meta property="og:updated_time" content="2017-04-19T02:39:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
+<meta name="twitter:title" content="Swift GCD">
+<meta name="twitter:description" content="GCDGrand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。 基本概念 进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/12/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/19/Swift-GCD/"/>
 
 
 
 
 
-  <title> Hello World | Roy's Note </title>
+  <title> Swift GCD | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/19/Swift-GCD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Hello World
+                Swift GCD
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T20:53:39+08:00">
-                2017-04-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T09:45:36+08:00">
+                2017-04-19
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mind/" itemprop="url" rel="index">
-                    <span itemprop="name">Mind</span>
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
                   </a>
                 </span>
 
@@ -374,18 +374,48 @@
       
 
       
-        <p>对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。</p>
-<h2 id="为什么要开通博客？"><a href="#为什么要开通博客？" class="headerlink" title="为什么要开通博客？"></a>为什么要开通博客？</h2><ul>
-<li>记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。</li>
-<li>分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享，说不定你的分享对于某一个人大有裨益。</li>
-<li>交流，把自己的思想和大家分享，别人对此评头论足一定是好事，人有局限性，汇聚更多的思想，才能将局限缩小。</li>
-</ul>
-<h2 id="有这么多开放平台，为什么要自己动手搭建博客？"><a href="#有这么多开放平台，为什么要自己动手搭建博客？" class="headerlink" title="有这么多开放平台，为什么要自己动手搭建博客？"></a>有这么多开放平台，为什么要自己动手搭建博客？</h2><ol>
-<li>自己动手，丰衣足食。</li>
-<li>作为技术开发，没有自己的博客，总感觉人生缺少点什么。</li>
-<li>有很多开源的博客，搭建博客的时间成本，技术成本，经济成本都很低。</li>
-<li>可以装逼，这点很重要。</li>
-</ol>
+        <h2 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h2><p>Grand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。</p>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><blockquote>
+<p>进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间</p>
+<p>线程：线程是进程中一个独立的执行路径(控制单元);一个进程中至少包含一条线程，即主线程</p>
+<p>队列：是管理线程的，相当于线程池,能管理线程什么时候执行。无论什么队列和任务，线程的创建和回收不需要程序员操作，由队列负责。</p>
+<p>串行队列：队列中的任务只会顺序执行。</p>
+<p>并行队列：队列中的任务通常会并发执行。</p>
+<p>全局队列：是系统的，与并行队列类似，但调试时，无法确认操作所在队列</p>
+<p>主队列：每一个应用程序对应唯一一个主队列，在多线程开发中，使用主队列更新UI。</p>
+<p>串行队列同步：操作不会新建线程、操作顺序执行。</p>
+<p>串行队列异步：操作需要一个子线程，会新建线程、线程的创建和回收不需要程序员参与，操作顺序执行，“最安全的选择”。</p>
+<p>并行队列同步：操作不会新建线程、操作顺序执行。</p>
+<p>并行队列异步：操作会新建多个线程（有多少任务，就开N个线程执行）、操作无序执行；队列前如果有其他任务，会等待前面的任务完成之后再执行；场景：既不影响主线程，又不需要顺序执行的操作！</p>
+<p>全局队列异步：操作会新建多个线程、操作无序执行，队列前如果有其他任务，会等待前面的任务完成之后再执行。</p>
+<p>全局队列同步：操作不会新建线程、操作顺序执行。</p>
+<p>主队列：操作在主线程上顺序执行，不存在异步。</p>
+</blockquote>
+<h3 id="图说概念"><a href="#图说概念" class="headerlink" title="图说概念"></a>图说概念</h3><table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">串行队列</th>
+<th style="text-align:center">并行队列</th>
+<th style="text-align:center">全局队列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">同步</td>
+<td style="text-align:center">不创建线程，顺序执行</td>
+<td style="text-align:center">不创建线程，顺序执行</td>
+<td style="text-align:center">不创建线程，顺序执行</td>
+</tr>
+<tr>
+<td style="text-align:center">异步</td>
+<td style="text-align:center">创建一个线程，顺序执行</td>
+<td style="text-align:center">创建多个线程，并发执行</td>
+<td style="text-align:center">创建多个线程，并发执行</td>
+</tr>
+</tbody>
+</table>
+<h3 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h3><p>在我们使用多线程的时候，主要是处理并发事件，使用下面的代码能够解决大部分场景：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">DispatchQueue.global().async &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"开始执行异步任务"</span>)</div><div class="line">Thread.sleep(<span class="keyword">for</span>TimeInterval: 2)</div><div class="line"><span class="built_in">print</span>(<span class="string">"异步任务执行完毕"</span>)</div><div class="line">DispatchQueue.main.async &#123;</div><div class="line"><span class="built_in">print</span>(<span class="string">"回到UI线程"</span>)</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -415,9 +445,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/Github/" rel="tag"># Github</a>
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/GCD/" rel="tag"># GCD</a>
           
         </div>
       
@@ -430,15 +462,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/13/Swift-Start/" rel="next" title="Swift Start">
-                <i class="fa fa-chevron-left"></i> Swift Start
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/18/MarkDown-File/" rel="prev" title="MarkDown File">
+                MarkDown File <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -567,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要开通博客？"><span class="nav-number">1.</span> <span class="nav-text">为什么要开通博客？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有这么多开放平台，为什么要自己动手搭建博客？"><span class="nav-number">2.</span> <span class="nav-text">有这么多开放平台，为什么要自己动手搭建博客？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#GCD"><span class="nav-number">1.</span> <span class="nav-text">GCD</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">2.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图说概念"><span class="nav-number">2.1.</span> <span class="nav-text">图说概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码示例"><span class="nav-number">2.2.</span> <span class="nav-text">代码示例</span></a></li></ol></li></ol></div>
             
 
           </div>
