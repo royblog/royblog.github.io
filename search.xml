@@ -5,7 +5,7 @@
     <entry>
       <title><![CDATA[MarkDown File]]></title>
       <url>%2F2017%2F04%2F18%2FMarkDown-File%2F</url>
-      <content type="text"><![CDATA[Markdown使用笔记 创建表格12345| Tables | col1 | col2 || :----: |:-----:|:----:|| a | b | c || d | e | f || g | h | i | 效果如下： 索引1&gt; 添加引用内容 效果如下： 这是引用内容 分割线1*** 效果如下： 加粗1** 加粗内容 ** 效果如下： 这是加粗内容 超链接1[这是百度首页](www.baidu.com) 效果如下：这是百度首页 图片1![这是一张图片](http://roywyg.oss-cn-shanghai.aliyuncs.com/Image/6F5895E3F6953A91FFDB56D212461762.jpg) 效果如下： 字体1# 字体1, ## 字体2, ### 字体3,#### 字体4,##### 字体5,###### 字体6 效果如下： 字体1,字体2字体3字体4字体5字体6斜体1*这是斜体* 效果如下：这是斜体 无序列表12* this one* this two 效果如下： this one this two 有序列表121. this is order one 2. this is order two 效果如下： this is order one this is order two 脚注1[^content] 效果如下：[^mark] : 《百科全书》 行内代码1这是行内`行内`代码 效果如下：这是行内行内代码 代码块效果如下：1这是代码块 删除线1~~删除~~ 效果如下：删除]]></content>
+      <content type="text"><![CDATA[Markdown使用笔记 创建表格12345| Tables | col1 | col2 || :----: |:-----:|:----:|| a | b | c || d | e | f || g | h | i | 效果如下： Tables col1 col2 a b c d e f g h i 索引1&gt; 添加引用内容 效果如下： 这是引用内容 分割线1*** 效果如下： 加粗1** 加粗内容 ** 效果如下： 这是加粗内容 超链接1[这是百度首页](www.baidu.com) 效果如下：这是百度首页 图片1![这是一张图片](http://roywyg.oss-cn-shanghai.aliyuncs.com/Image/6F5895E3F6953A91FFDB56D212461762.jpg) 效果如下： 字体1# 字体1, ## 字体2, ### 字体3,#### 字体4,##### 字体5,###### 字体6 效果如下： 字体1,字体2字体3字体4字体5字体6斜体1*这是斜体* 效果如下：这是斜体 无序列表12* this one* this two 效果如下： this one this two 有序列表121. this is order one 2. this is order two 效果如下： this is order one this is order two 脚注1[^content] 效果如下：[^mark] : 《百科全书》 行内代码1这是行内`行内`代码 效果如下：这是行内行内代码 代码块效果如下：1这是代码块 删除线1~~删除~~ 效果如下：删除]]></content>
     </entry>
 
     
