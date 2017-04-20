@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
+<meta name="description" content="注：这篇文章原出处来自淘宝技术团队  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Character、String、AnyObject、Tuple。 12345678910111213141516171">
 <meta name="keywords" content="iOS,Swift,Runtime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift Runtime">
 <meta property="og:url" content="http://yoursite.com/2017/04/20/Swift-Runtime/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
-<meta property="og:updated_time" content="2017-04-20T10:11:53.000Z">
+<meta property="og:description" content="注：这篇文章原出处来自淘宝技术团队  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Character、String、AnyObject、Tuple。 12345678910111213141516171">
+<meta property="og:updated_time" content="2017-04-20T14:10:49.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Runtime">
-<meta name="twitter:description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
+<meta name="twitter:description" content="注：这篇文章原出处来自淘宝技术团队  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Character、String、AnyObject、Tuple。 12345678910111213141516171">
 
 
 
@@ -374,7 +374,7 @@
       
 
       
-        <p>注：这篇文章，转载自<a href="http://www.infoq.com/cn/profile/%E5%B0%B9%E5%B3%A5%E4%BC%9F" target="_blank" rel="external">尹铮伟</a>，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。</p>
+        <p>注：这篇文章原出处来自淘宝技术团队</p>
 <hr>
 <p>Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？ </p>
 <h3 id="用例分析"><a href="#用例分析" class="headerlink" title="用例分析"></a>用例分析</h3><p>我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Character、String、AnyObject、Tuple。</p>
