@@ -1,0 +1,764 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Swift,Runtime," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
+<meta name="keywords" content="iOS,Swift,Runtime">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Runtime">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/Swift-Runtime/index.html">
+<meta property="og:site_name" content="Roy's Note">
+<meta property="og:description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
+<meta property="og:updated_time" content="2017-04-20T10:11:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift Runtime">
+<meta name="twitter:description" content="注：这篇文章，转载自尹铮伟，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。  Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？  用例分析我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Chara">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/20/Swift-Runtime/"/>
+
+
+
+
+
+  <title> Swift Runtime | Roy's Note </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b5fd22696c9e7f2aca943f29c12353a9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Roy's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Write and Change</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/Swift-Runtime/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王耀国">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift Runtime
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T15:31:39+08:00">
+                2017-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>注：这篇文章，转载自<a href="http://www.infoq.com/cn/profile/%E5%B0%B9%E5%B3%A5%E4%BC%9F" target="_blank" rel="external">尹铮伟</a>，我按照作者的步骤走了整个流程，因为原作者是基于Swift2.2写的，在Swift3.1中不能适应的代码我已做了调整。</p>
+<hr>
+<p>Objective-C具有动态性，能够通过’runtime API’调用和替换任意方法，那么Swift也具有这些动态性吗？ </p>
+<h3 id="用例分析"><a href="#用例分析" class="headerlink" title="用例分析"></a>用例分析</h3><p>我们拿一个纯Swift类和一个继承自NSObject的类来做分析，这两个类里包含尽量多的Swift的类型比如Character、String、AnyObject、Tuple。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">class TestSwiftClass &#123;</div><div class="line">    var aBool: Bool = <span class="literal">true</span></div><div class="line">    var aInt: Int = 0</div><div class="line">    var aFloat: Float = 12.45</div><div class="line">    var aDouble: Double = 12.2342</div><div class="line">    var aString: String = <span class="string">"abc"</span></div><div class="line">    var aObject: AnyObject! = nil</div><div class="line"></div><div class="line">    func <span class="built_in">test</span>ReturnVoidWithaId(aId: UIView) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class TestSwiftVC: UIViewController &#123;</div><div class="line">    var aBool: Bool = <span class="literal">true</span></div><div class="line">    var aInt: Int = 0</div><div class="line">    var aFloat: Float = 12.45</div><div class="line">    var aDouble: Double = 12.2342</div><div class="line">    var aString: String = <span class="string">"abc"</span></div><div class="line">    var aObject: AnyObject! = nil</div><div class="line"></div><div class="line">    override func <span class="function"><span class="title">viewDidLoad</span></span>() &#123;</div><div class="line">        super.viewDidLoad()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override func viewDidAppear(_ animated: Bool) &#123;</div><div class="line">        super.viewDidAppear(animated)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func <span class="built_in">test</span>ReturnVoidWithaId(aId: UIView) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func <span class="built_in">test</span>RetrunVoidWithBool(aBool: Bool, aInteger: Int, aFloat: Float, aDouble: Double, aString: String, aObject: AnyObject) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func <span class="built_in">test</span>ReturnTuple(aBool: Bool, aInteger: Int, aFloat: Float) -&gt; (Bool, Int, Float) &#123;</div><div class="line">        <span class="built_in">return</span> (aBool, aInteger, aFloat)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func <span class="built_in">test</span>ReturnVoidWithCharacter(aCharacter: Character) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    func tableView(tableView: UITableView, numberOfRowsSection: Int) -&gt; Int &#123;</div><div class="line">        <span class="built_in">return</span> 20</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法、属性"><a href="#方法、属性" class="headerlink" title="方法、属性"></a>方法、属性</h3><p>动态性比较重要的一点就是能够拿到某个类所有的方法、属性，我们使用如下代码来打印方法和属性列表。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">func showClsRuntime(cls: AnyClass) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"start methodList"</span>)</div><div class="line">    var methodNum: UInt32 = 0</div><div class="line">    <span class="built_in">let</span> methodList = class_copyMethodList(cls, &amp;methodNum)</div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> 0..&lt;numericCast(methodNum) &#123;</div><div class="line">        <span class="built_in">let</span> method: Method = methodList![index]!</div><div class="line">        <span class="built_in">print</span>(String(_sel: method_getName(method)))</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"end methodList"</span>)</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"start propertyList"</span>)</div><div class="line">    var propertyNum: UInt32 = 0</div><div class="line">    <span class="built_in">let</span> propertyList = class_copyPropertyList(cls, &amp;propertyNum)</div><div class="line">    <span class="keyword">for</span> index <span class="keyword">in</span> 0..&lt;numericCast(propertyNum) &#123;</div><div class="line">        <span class="built_in">let</span> property: objc_property_t = propertyList![index]!</div><div class="line">        <span class="built_in">print</span>(String.init(utf8String: property_getName(property)) ?? <span class="string">""</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"end propertyList"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> aSwifterClass : TestSwiftClass = TestSwiftClass()</div><div class="line">showClsRuntime(cls: object_getClass(aSwifterClass))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(<span class="string">"\n"</span>)</div><div class="line"><span class="built_in">let</span> aSwiftVC: TestSwiftVC = TestSwiftVC()</div><div class="line">showClsRuntime(cls: object_getClass(aSwiftVC))</div></pre></td></tr></table></figure></p>
+<p>执行上面代码结果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">start methodList</div><div class="line">end methodList</div><div class="line"></div><div class="line">start propertyList</div><div class="line">end propertyList</div><div class="line"></div><div class="line">start methodList</div><div class="line">.cxx_destruct</div><div class="line">initWithNibName:bundle:</div><div class="line">viewDidAppear:</div><div class="line">viewDidLoad</div><div class="line">initWithCoder:</div><div class="line">aBool</div><div class="line"><span class="built_in">set</span>ABool:</div><div class="line">aInt</div><div class="line"><span class="built_in">set</span>AInt:</div><div class="line">aFloat</div><div class="line"><span class="built_in">set</span>AFloat:</div><div class="line">aDouble</div><div class="line"><span class="built_in">set</span>ADouble:</div><div class="line">aString</div><div class="line"><span class="built_in">set</span>AString:</div><div class="line">aObject</div><div class="line"><span class="built_in">set</span>AObject:</div><div class="line"><span class="built_in">test</span>ReturnVoidWithaIdWithAId:</div><div class="line"><span class="built_in">test</span>RetrunVoidWithBoolWithABool:aInteger:aFloat:aDouble:aString:aObject:</div><div class="line">tableViewWithTableView:numberOfRowsSection:</div><div class="line">end methodList</div><div class="line"></div><div class="line">start propertyList</div><div class="line">aBool</div><div class="line">aInt</div><div class="line">aFloat</div><div class="line">aDouble</div><div class="line">aString</div><div class="line">aObject</div><div class="line">end propertyList</div></pre></td></tr></table></figure></p>
+<p>结论：</p>
+<ul>
+<li>对于纯Swift的TestSwiftClass来说任何方法、属性都未获取到</li>
+<li>对于TestSwiftVC，除了testReturnTuple，testReturnVoidWithCharacter两个方法外，其它都获得成功。<br>原因：<blockquote>
+<p>纯Swift类的函数调用已经不再是Objective-c的运行时发消息，而是类似C++的vtable，在编译时就确定了调用哪个函数，所以没法通过runtime获取方法、属性。<br>TestSwiftVC继承自UIViewController，基类为NSObject，而Swift为了兼容Objective-C，凡是继承自NSObject的类都会保留其动态性，所以我们能通过runtime拿到他的方法。<br>testReturnTuple，testReturnVoidWithCharacter获取不到是因为：从Objective-c的runtime 特性可以知道，所有运行时方法都依赖TypeEncoding，而Character和Tuple是Swift特有的，无法映射到OC的类型，更无法用OC的typeEncoding表示，也就没法通过runtime获取了。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="Method-Swizzing"><a href="#Method-Swizzing" class="headerlink" title="Method Swizzing"></a>Method Swizzing</h3><p>动态性最常用的就是方法替换（Method Swizzling），将类的某个方法替换成自定义的方法，从而达到hook的作用。 </p>
+<ul>
+<li>对于纯Swift类（如TestSwiftClass）来说，无法通过objc runtime替换方法，因为由上面的测试可知拿不到这些方法、属性 </li>
+<li>对于继承自NSObject类（如TestSwiftVC）来说，无法通过runtime获取到的方法肯定没法替换了。那能通过runtime获取到的方法就都能被替换吗？我们测一把。<br>我们替换两个可以被runtime获取到的方法：viewDidAppear和testReturnVoidWithaId<br>替换代码：<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func methodSwizze(cls: AnyClass, originalSelector: Selector, swizzledSelector: Selector) &#123;</div><div class="line">    <span class="built_in">let</span> originalMethod = class_getInstanceMethod(cls, originalSelector)</div><div class="line">    <span class="built_in">let</span> swizzledMethod = class_getInstanceMethod(cls, swizzledSelector)</div><div class="line"></div><div class="line">    <span class="built_in">let</span> didAddMethod = class_addMethod(cls, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))</div><div class="line"></div><div class="line">    <span class="keyword">if</span> didAddMethod &#123;</div><div class="line">        class_replaceMethod(cls, swizzledSelector ,method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        method_exchangeImplementations(originalMethod, swizzledMethod)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>viewDidAppear可以替换掉，testReturnVoidWithaId不能替换，通过代码调试，可以看到viewDidAppear会有@objc标识，testReturnVoidWithaId没有标识。<br>@objc用来做什么的？与动态性有关吗？<br>@objc是用来将Swift的API导出给Objective-C和Objective-C runtime使用的，如果你的类继承自Objective-c的类（如NSObject）将会自动被编译器插入@objc标识。<br>我们在把TestSwiftClass（纯Swift类）的方法、属性前都加个@objc 试试，如图：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">class TestSwiftClass &#123;</div><div class="line">    @objc var aBool: Bool = <span class="literal">true</span></div><div class="line">    @objc var aInt: Int = 0</div><div class="line">    @objc var aFloat: Float = 12.45</div><div class="line">    @objc var aDouble: Double = 12.2342</div><div class="line">    @objc var aString: String = <span class="string">"abc"</span></div><div class="line">    @objc var aObject: AnyObject! = nil</div><div class="line"></div><div class="line">    @objc func <span class="built_in">test</span>ReturnVoidWithaId(aId: UIView) &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>查看日志可以发现加了@objc的方法、属性均可以被runtime获取到了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">start methodList</div><div class="line">aBool</div><div class="line"><span class="built_in">set</span>ABool:</div><div class="line">aInt</div><div class="line"><span class="built_in">set</span>AInt:</div><div class="line">aFloat</div><div class="line"><span class="built_in">set</span>AFloat:</div><div class="line">aDouble</div><div class="line"><span class="built_in">set</span>ADouble:</div><div class="line">aString</div><div class="line"><span class="built_in">set</span>AString:</div><div class="line">aObject</div><div class="line"><span class="built_in">set</span>AObject:</div><div class="line"><span class="built_in">test</span>ReturnVoidWithaIdWithAId:</div><div class="line">end methodList</div><div class="line"></div><div class="line">start propertyList</div><div class="line">aBool</div><div class="line">aInt</div><div class="line">aFloat</div><div class="line">aDouble</div><div class="line">aString</div><div class="line">aObject</div><div class="line">end propertyList</div></pre></td></tr></table></figure></p>
+<p>加了@objc标识的方法、属性无法保证都会被运行时调用，因为Swift会做静态优化。要想完全被动态调用，必须使用dynamic修饰。<br>使用dynamic修饰将会隐式的加上@objc标识,这也就解释了为什么testReturnVoidWithaId无法被替换，因为写在Swift里的代码直接被编译优化成静态调用了。而viewDidAppear是继承Objective-C类获得的方法，本身就被修饰为dynamic，所以能被动态替换。<br>我们把TestSwiftVC方法前加上dynamic再测一把，从堆栈也可以看出，方法的调用前增加了@objc标识，testReturnVoidWithaId方法被替换成功了。 </p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>纯Swift类没有动态性，但在方法、属性前添加dynamic修饰可以获得动态性。 </li>
+<li>继承自NSObject的Swift类，其继承自父类的方法具有动态性，其他自定义方法、属性需要加dynamic修饰才可以获得动态性。 </li>
+<li>若方法的参数、属性类型为Swift特有、无法映射到Objective-C的类型(如Character、Tuple)，则此方法、属性无法添加dynamic修饰（会编译错误） </li>
+<li>Swift类在Objective-C中会有模块前缀</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/Runtime/" rel="tag"># Runtime</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/20/Swift-Key-Value-Observing/" rel="prev" title="Swift Key-Value Observing">
+                Swift Key-Value Observing <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="王耀国" />
+          <p class="site-author-name" itemprop="name">王耀国</p>
+           
+              <p class="site-description motion-element" itemprop="description">Do something just for not boring</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例分析"><span class="nav-number">1.</span> <span class="nav-text">用例分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法、属性"><span class="nav-number">2.</span> <span class="nav-text">方法、属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Method-Swizzing"><span class="nav-number">3.</span> <span class="nav-text">Method Swizzing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王耀国</span>
+</div>
+
+
+<div class="powered-by">
+  WriteAndShare
+</div>
+
+<div class="theme-info">
+  WangYaoGuoBlog -
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
