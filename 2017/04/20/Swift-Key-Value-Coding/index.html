@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Swift,KVC," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="KVC (Key-Value Coding)， 它是一种用间接方式访问类的属性的机制。在 Swift 中为一个类实现 KVC 的话，需要让它继承自 NSObject。 Code1234567891011121314class Person: NSObject &amp;#123;    var firstName: String    var lastName: String    init(firstN">
+<meta name="keywords" content="iOS,Swift,KVC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Key-Value Coding">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/Swift-Key-Value-Coding/index.html">
+<meta property="og:site_name" content="Roy's Note">
+<meta property="og:description" content="KVC (Key-Value Coding)， 它是一种用间接方式访问类的属性的机制。在 Swift 中为一个类实现 KVC 的话，需要让它继承自 NSObject。 Code1234567891011121314class Person: NSObject &amp;#123;    var firstName: String    var lastName: String    init(firstN">
+<meta property="og:updated_time" content="2017-04-20T04:40:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift Key-Value Coding">
+<meta name="twitter:description" content="KVC (Key-Value Coding)， 它是一种用间接方式访问类的属性的机制。在 Swift 中为一个类实现 KVC 的话，需要让它继承自 NSObject。 Code1234567891011121314class Person: NSObject &amp;#123;    var firstName: String    var lastName: String    init(firstN">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/20/Swift-Key-Value-Coding/"/>
+
+
+
+
+
+  <title> Swift Key-Value Coding | Roy's Note </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b5fd22696c9e7f2aca943f29c12353a9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Roy's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Write and Change</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/Swift-Key-Value-Coding/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王耀国">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift Key-Value Coding
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T11:09:58+08:00">
+                2017-04-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>KVC (Key-Value Coding)， 它是一种用间接方式访问类的属性的机制。在 Swift 中为一个类实现 KVC 的话，需要让它继承自 NSObject。</p>
+<h3 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class Person: NSObject &#123;</div><div class="line">    var firstName: String</div><div class="line">    var lastName: String</div><div class="line"></div><div class="line">    init(firstName: String, lastName: String) &#123;</div><div class="line">        self.firstName = firstName</div><div class="line">        self.lastName = lastName</div><div class="line">    &#125;</div><div class="line">&#125; </div><div class="line"><span class="built_in">let</span> roy = Person(firstName: <span class="string">"roy"</span>, lastName: <span class="string">"wang"</span>)</div><div class="line">``` </div><div class="line">直接引用属性：</div><div class="line">``` bash</div><div class="line"><span class="built_in">print</span>(roy.lastName)</div></pre></td></tr></table></figure>
+<p>通过KVC机制访问：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">let</span> newValue = roy.value(<span class="keyword">for</span>Key: <span class="string">"lastName"</span>) &#123;</div><div class="line">    <span class="built_in">print</span>(newValue)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果使用KVC获取一个不存在的key，会导致程序崩溃。找不到key，会调用valueForUndefinedKey，我们可以重新此方法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Person: NSObject &#123;</div><div class="line">    var firstName: String</div><div class="line">    var lastName: String</div><div class="line"></div><div class="line">    init(firstName: String, lastName: String) &#123;</div><div class="line">        self.firstName = firstName</div><div class="line">        self.lastName = lastName</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override func value(<span class="keyword">for</span>UndefinedKey key: String) -&gt; Any? &#123;</div><div class="line">        <span class="built_in">return</span> <span class="string">""</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>KVC 除了可以用单个的 key 来访问单个属性，还提供了一个叫做 keyPath 的东西。所谓 keyPath，就比如你的属性本身也有自己的属性，那么想引用这个属性，就需要用到 keyPath。咱们用一个示例来说明：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">class Province: NSObject &#123;</div><div class="line">    var proName: String</div><div class="line">    init(proName: String) &#123;</div><div class="line">        self.proName = proName</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Country: NSObject &#123;</div><div class="line">    var conName: String</div><div class="line">    var conProvince: Province</div><div class="line">    init(conName: String, conProvince: Province) &#123;</div><div class="line">    self.conName = conName</div><div class="line">        self.conProvince = conProvince</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var con = Country(conName: <span class="string">"CN"</span>, conProvince: Province(proName: <span class="string">"HenanProvince"</span>))</div><div class="line"></div><div class="line"><span class="built_in">print</span>(con.value(<span class="keyword">for</span>KeyPath: <span class="string">"conProvince.proName"</span>))</div></pre></td></tr></table></figure></p>
+<p>KVC 定义了使用 valueForKey获取属性，同样也提供了设置属性的方法 setValue:forKey<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">con.setValue(<span class="string">"US"</span>, <span class="keyword">for</span>Key: <span class="string">"conName"</span>)</div></pre></td></tr></table></figure></p>
+<h3 id="标量值"><a href="#标量值" class="headerlink" title="标量值"></a>标量值</h3><p>所谓标量值（Scalar Type）就是简单的类型的属性，比如int，float，这些非对象属性，关于标量值在KVC中有些地方需要注意：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">class Person: NSObject &#123;</div><div class="line">    var firstName: String</div><div class="line">    var lastName: String</div><div class="line">    var age: Int</div><div class="line"></div><div class="line">    init(firstName: String, lastName: String, age: Int) &#123;</div><div class="line">        self.firstName = firstName</div><div class="line">        self.lastName = lastName</div><div class="line">        self.age = age</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="built_in">let</span> roy = Person(firstName: <span class="string">"roy"</span>, lastName: <span class="string">"wang"</span>, age: 14)</div><div class="line">roy.setValue(nil, <span class="keyword">for</span>Key: <span class="string">"age"</span>)</div></pre></td></tr></table></figure></p>
+<p>age是一个简单标量值，标量值不能为nil,虽然setValue 方法可以接受任何类型的参数作为值的设置，但 age 的底层存储确实标量值，因此我们执行上面那条 setValue 语句的时候必然会造成程序的崩溃。<br>那么我们除了注意避免将 nil 传递给底层存储是标量类型的属性之外，还有没有其他方法呢？<br>KVC 为我们提供了一个 setNilValueForKey 方法，每当我们要将 nil 设置给一个 key 的时候，这个方法就会被调用，所以我们可以修改一下 Person 类的定义：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class Person: NSObject &#123;</div><div class="line">    var firstName: String</div><div class="line">    var lastName: String</div><div class="line">    var age: Int</div><div class="line"></div><div class="line">    init(firstName: String, lastName: String, age: Int) &#123;</div><div class="line">        self.firstName = firstName</div><div class="line">        self.lastName = lastName</div><div class="line">        self.age = age</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override func <span class="built_in">set</span>NilValueForKey(_ key: String) &#123;</div><div class="line">        <span class="keyword">if</span> key == <span class="string">"age"</span> &#123;</div><div class="line">            self.setValue(18, <span class="keyword">for</span>Key: <span class="string">"age"</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><p><strong>实现KVC，为什么要继承 NSObject</strong></p>
+<blockquote>
+<p>KVC 机制是由一个协议 NSKeyValueCoding 定义的。NSObject 帮我们实现了这个协议，所以 KVC 核心的逻辑都在 NSObject 中，我们继承 NSObject 才能让我们的类获得 KVC 的能力。(理论上说，如果你遵循 NSKeyValueCoding 协议的接口，其实也可以自己实现 KVC 的细节，完全行得通。</p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/KVC/" rel="tag"># KVC</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/20/Swift-Optional/" rel="prev" title="Swift Optional">
+                Swift Optional <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="王耀国" />
+          <p class="site-author-name" itemprop="name">王耀国</p>
+           
+              <p class="site-description motion-element" itemprop="description">Do something just for not boring</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Code"><span class="nav-number">1.</span> <span class="nav-text">Code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#标量值"><span class="nav-number">2.</span> <span class="nav-text">标量值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FAQ"><span class="nav-number">3.</span> <span class="nav-text">FAQ</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王耀国</span>
+</div>
+
+
+<div class="powered-by">
+  WriteAndShare
+</div>
+
+<div class="theme-info">
+  WangYaoGuoBlog -
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
