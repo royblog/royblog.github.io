@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Swift,Define," />
+  <meta name="keywords" content="iOS,Swift,KVO," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
-<meta name="keywords" content="iOS,Swift,Define">
+<meta name="description" content="KVO（Key-Value Observing）是为了其他不同实例对当前的某个属性 (严格来说是 keypath) 进行监听时使用的。其他实例可以充当一个订阅者的角色，当被监听的属性发生变化时，订阅者将得到通知。这是一个很强大的属性，通过 KVO 我们可以实现很多松耦合的结构，使代码更加灵活和强大：像通过监听 model 的值来自动更新 UI 的绑定这样的工作，基本都是基于 KVO 来完成的。在">
+<meta name="keywords" content="iOS,Swift,KVO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Define">
-<meta property="og:url" content="http://yoursite.com/2017/04/18/Swift-Define/index.html">
+<meta property="og:title" content="Swift Key-Value Observing">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/Swift-Key-Value-Observing/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
-<meta property="og:updated_time" content="2017-04-18T09:37:06.000Z">
+<meta property="og:description" content="KVO（Key-Value Observing）是为了其他不同实例对当前的某个属性 (严格来说是 keypath) 进行监听时使用的。其他实例可以充当一个订阅者的角色，当被监听的属性发生变化时，订阅者将得到通知。这是一个很强大的属性，通过 KVO 我们可以实现很多松耦合的结构，使代码更加灵活和强大：像通过监听 model 的值来自动更新 UI 的绑定这样的工作，基本都是基于 KVO 来完成的。在">
+<meta property="og:updated_time" content="2017-04-20T05:26:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift Define">
-<meta name="twitter:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
+<meta name="twitter:title" content="Swift Key-Value Observing">
+<meta name="twitter:description" content="KVO（Key-Value Observing）是为了其他不同实例对当前的某个属性 (严格来说是 keypath) 进行监听时使用的。其他实例可以充当一个订阅者的角色，当被监听的属性发生变化时，订阅者将得到通知。这是一个很强大的属性，通过 KVO 我们可以实现很多松耦合的结构，使代码更加灵活和强大：像通过监听 model 的值来自动更新 UI 的绑定这样的工作，基本都是基于 KVO 来完成的。在">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/18/Swift-Define/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/20/Swift-Key-Value-Observing/"/>
 
 
 
 
 
-  <title> Swift Define | Roy's Note </title>
+  <title> Swift Key-Value Observing | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/18/Swift-Define/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/Swift-Key-Value-Observing/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Swift Define
+                Swift Key-Value Observing
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T17:19:37+08:00">
-                2017-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T12:57:46+08:00">
+                2017-04-20
               </time>
             
 
@@ -326,28 +326,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -374,15 +352,10 @@
       
 
       
-        <p>宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。<br>在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。</p>
-<h3 id="没有参数的宏"><a href="#没有参数的宏" class="headerlink" title="没有参数的宏"></a>没有参数的宏</h3><p>在OC中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define kScreenHeight     [UIScreen mainScreen].bounds.size.height</span></div><div class="line"><span class="comment">#define kScreenWidth      [UIScreen mainScreen].bounds.size.width</span></div></pre></td></tr></table></figure>
-<p>在Swift中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> kScreenHeight = UIScreen.mainScreen().bounds.size.height</div><div class="line"><span class="built_in">let</span> kScreenWidth = UIScreen.mainScreen().bounds.size.width</div></pre></td></tr></table></figure>
-<h3 id="接收参数的宏"><a href="#接收参数的宏" class="headerlink" title="接收参数的宏"></a>接收参数的宏</h3><p>在OC中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]</span></div></pre></td></tr></table></figure>
-<p>在Swift中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor</div><div class="line">&#123;</div><div class="line"><span class="built_in">return</span> UIColor(red: (r)/255.0, green: (g)/255.0, blue: </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <p>KVO（Key-Value Observing）是为了其他不同实例对当前的某个属性 (严格来说是 keypath) 进行监听时使用的。其他实例可以充当一个订阅者的角色，当被监听的属性发生变化时，订阅者将得到通知。<br>这是一个很强大的属性，通过 KVO 我们可以实现很多松耦合的结构，使代码更加灵活和强大：像通过监听 model 的值来自动更新 UI 的绑定这样的工作，基本都是基于 KVO 来完成的。<br>在 Swift 中我们也是可以使用 KVO 的，但是仅限于在 NSObject 的子类中。这是可以理解的，因为 KVO 是基于 KVC (Key-Value Coding) 以及动态派发技术实现的，而这些东西都是 Objective-C 运行时的概念。另外由于 Swift 为了效率，默认禁用了动态派发，因此想用 Swift 来实现 KVO，我们还需要做额外的工作，那就是将想要观测的对象标记为 dynamic。</p>
+<h3 id="官方代码"><a href="#官方代码" class="headerlink" title="官方代码"></a>官方代码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">class MyObjectToObserve: NSObject &#123;</div><div class="line">    dynamic var myDate = NSDate()</div><div class="line">    func <span class="function"><span class="title">updateDate</span></span>() &#123;</div><div class="line">        myDate = NSDate()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">private var myContext = 0</div><div class="line"></div><div class="line">class MyObserver: NSObject &#123;</div><div class="line">    var objectToObserve = MyObjectToObserve()</div><div class="line">    override <span class="function"><span class="title">init</span></span>() &#123;</div><div class="line">        super.init()</div><div class="line">        objectToObserve.addObserver(self, <span class="keyword">for</span>KeyPath: <span class="comment">#keyPath(MyObjectToObserve.myDate), options: .new, context: &amp;myContext)</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    override func observeValue(<span class="keyword">for</span>KeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) &#123;</div><div class="line">        <span class="keyword">if</span> context == &amp;myContext &#123;</div><div class="line">            <span class="keyword">if</span> <span class="built_in">let</span> newValue = change?[.newKey] &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Date changed: \(newValue)"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            super.observeValue(<span class="keyword">for</span>KeyPath: keyPath, of: object, change: change, context: context)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    deinit &#123;</div><div class="line">        objectToObserve.removeObserver(self, <span class="keyword">for</span>KeyPath: <span class="comment">#keyPath(MyObjectToObserve.myDate), context: &amp;myContext)</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> obj = MyObserver()</div><div class="line">obj.objectToObserve.updateDate()</div></pre></td></tr></table></figure>
+<p>首先是 Swift 的 KVO 需要依赖的东西比原来多。在 Objective-C 中我们几乎可以没有限制地对所有满足 KVC 的属性进行监听，而现在我们需要属性有 dynamic 进行修饰。大多数情况下，我们想要观察的类不一定是 dynamic 修饰的 (除非这个类的开发者有意为之，否则一般也不会有人愿意多花功夫在属性前加上 dynamic，因为这毕竟要损失一部分性能)，并且有时候我们很可能也无法修改想要观察的类的源码。遇到这样的情况的话，一个可能可行的方案是继承这个类并且将需要观察的属性使用 dynamic 进行重写。比如刚才我们的 MyObjectToObserve 中如果 date 没有 dynamic 的话，我们可能就需要一个新的 OtherMyObjectToObserve 了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">class MyObjectToObserve: NSObject &#123;</div><div class="line">    var myDate = NSDate()</div><div class="line">    func <span class="function"><span class="title">updateDate</span></span>() &#123;</div><div class="line">        myDate = NSDate()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class OtherMyObjectToObserve: MyObjectToObserve &#123;</div><div class="line">    dynamic override var myDate: NSDate &#123;</div><div class="line">        get &#123;</div><div class="line">            <span class="built_in">return</span> super.myDate</div><div class="line">        &#125;</div><div class="line">        <span class="built_in">set</span> &#123;</div><div class="line">            super.myDate = newValue</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><a href="http://swifter.tips/kvo/" target="_blank" rel="external">KVO</a>代码使用的是苹果官方示例</p>
 
       
     </div>
@@ -416,7 +389,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/Define/" rel="tag"># Define</a>
+            <a href="/tags/KVO/" rel="tag"># KVO</a>
           
         </div>
       
@@ -429,18 +402,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/18/MarkDown-File/" rel="next" title="MarkDown File">
-                <i class="fa fa-chevron-left"></i> MarkDown File
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/18/Swift-Lock/" rel="prev" title="Swift Lock">
-                Swift Lock <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/20/Swift-Key-Value-Coding/" rel="prev" title="Swift Key-Value Coding">
+                Swift Key-Value Coding <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -570,7 +539,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#没有参数的宏"><span class="nav-number">1.</span> <span class="nav-text">没有参数的宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收参数的宏"><span class="nav-number">2.</span> <span class="nav-text">接收参数的宏</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#官方代码"><span class="nav-number">1.</span> <span class="nav-text">官方代码</span></a></li></ol></div>
             
 
           </div>
