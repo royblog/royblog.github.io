@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Swift,Generic," />
+  <meta name="keywords" content="iOS,Swift,Optional," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="Swift创始人Chirs Lattner: 1Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。 什么是泛型？以下面两个例子说明什么是泛型 两值是否相等问题 两值交换问题  两值是否相等问题判断两值是否相等我们的常规思路如下： 123456789func equalInt(numOne: Int, numbTwo: Int) -&amp;gt; Bool &amp;#123;return numOn">
-<meta name="keywords" content="iOS,Swift,Generic">
+<meta name="description" content="Optional定义Optional是在Swift中引入的新类型，特点是可以有值，也没有没有值，没有值为nil。Optional其实就是一个枚举： 1234567891011public enum Optional&amp;lt;Wrapped&amp;gt; : ExpressibleByNilLiteral &amp;#123;    case none    case some(Wrapped)    public">
+<meta name="keywords" content="iOS,Swift,Optional">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Generic Base">
-<meta property="og:url" content="http://yoursite.com/2017/04/17/Swift-Generic-Base/index.html">
+<meta property="og:title" content="Swift Optional">
+<meta property="og:url" content="http://yoursite.com/2017/04/20/Swift-Optional/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="Swift创始人Chirs Lattner: 1Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。 什么是泛型？以下面两个例子说明什么是泛型 两值是否相等问题 两值交换问题  两值是否相等问题判断两值是否相等我们的常规思路如下： 123456789func equalInt(numOne: Int, numbTwo: Int) -&amp;gt; Bool &amp;#123;return numOn">
-<meta property="og:updated_time" content="2017-04-17T08:16:31.000Z">
+<meta property="og:description" content="Optional定义Optional是在Swift中引入的新类型，特点是可以有值，也没有没有值，没有值为nil。Optional其实就是一个枚举： 1234567891011public enum Optional&amp;lt;Wrapped&amp;gt; : ExpressibleByNilLiteral &amp;#123;    case none    case some(Wrapped)    public">
+<meta property="og:updated_time" content="2017-04-20T02:57:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift Generic Base">
-<meta name="twitter:description" content="Swift创始人Chirs Lattner: 1Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。 什么是泛型？以下面两个例子说明什么是泛型 两值是否相等问题 两值交换问题  两值是否相等问题判断两值是否相等我们的常规思路如下： 123456789func equalInt(numOne: Int, numbTwo: Int) -&amp;gt; Bool &amp;#123;return numOn">
+<meta name="twitter:title" content="Swift Optional">
+<meta name="twitter:description" content="Optional定义Optional是在Swift中引入的新类型，特点是可以有值，也没有没有值，没有值为nil。Optional其实就是一个枚举： 1234567891011public enum Optional&amp;lt;Wrapped&amp;gt; : ExpressibleByNilLiteral &amp;#123;    case none    case some(Wrapped)    public">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/17/Swift-Generic-Base/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/20/Swift-Optional/"/>
 
 
 
 
 
-  <title> Swift Generic Base | Roy's Note </title>
+  <title> Swift Optional | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/17/Swift-Generic-Base/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/20/Swift-Optional/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Swift Generic Base
+                Swift Optional
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-17T14:22:12+08:00">
-                2017-04-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-20T09:48:15+08:00">
+                2017-04-20
               </time>
             
 
@@ -374,20 +374,21 @@
       
 
       
-        <p>Swift创始人Chirs Lattner:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。</div></pre></td></tr></table></figure>
-<h2 id="什么是泛型？"><a href="#什么是泛型？" class="headerlink" title="什么是泛型？"></a>什么是泛型？</h2><h3 id="以下面两个例子说明什么是泛型"><a href="#以下面两个例子说明什么是泛型" class="headerlink" title="以下面两个例子说明什么是泛型"></a>以下面两个例子说明什么是泛型</h3><ul>
-<li>两值是否相等问题</li>
-<li>两值交换问题</li>
-</ul>
-<h3 id="两值是否相等问题"><a href="#两值是否相等问题" class="headerlink" title="两值是否相等问题"></a>两值是否相等问题</h3><p>判断两值是否相等我们的常规思路如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func equalInt(numOne: Int, numbTwo: Int) -&gt; Bool &#123;</div><div class="line"><span class="built_in">return</span> numOne == numbTwo</div><div class="line">&#125;</div><div class="line">equalInt(numOne: 4, numbTwo: 4)</div><div class="line"></div><div class="line">func equalString(strOne: String, strTwo: String) -&gt; Bool &#123;</div><div class="line"><span class="built_in">return</span> strOne == strTwo</div><div class="line">&#125;</div><div class="line">equalString(strOne: <span class="string">"roy"</span>, strTwo: <span class="string">"note"</span>)</div></pre></td></tr></table></figure>
-<p>我们需要为每一种类型写一种方法，一句话总结就是写的很不爽，下面就该泛型登场了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">func isEquals&lt;T: Comparable&gt;(a: inout T, b: inout T) -&gt; Bool &#123;</div><div class="line"><span class="built_in">return</span> (a == b)</div><div class="line">&#125;</div><div class="line">var num1 = 5</div><div class="line">var num2 = 5</div><div class="line">var str1 = <span class="string">"wyg"</span></div><div class="line">var str2 = <span class="string">"roy"</span></div><div class="line">isEquals(a: &amp;num1, b: &amp;num2)</div><div class="line">isEquals(a: &amp;str1, b: &amp;str2)</div></pre></td></tr></table></figure>
-<p>并不是所有的类型都具有可比性，必须遵守Comparable协议，在Swift中，基本数据类型和字符串都遵守Comparable协议。</p>
-<h3 id="两值交换问题"><a href="#两值交换问题" class="headerlink" title="两值交换问题"></a>两值交换问题</h3><p>有了上面例子铺垫，直接使用泛型来实现</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">func swapTwoValue&lt;T&gt;(a: inout T, b: inout T) &#123;</div><div class="line"><span class="built_in">let</span> tempValue = a</div><div class="line">a = b</div><div class="line">b = tempValue</div><div class="line">&#125;</div><div class="line"></div><div class="line">var oneStr = <span class="string">"hello"</span></div><div class="line">var twoStr = <span class="string">"world"</span></div><div class="line">swapTwoValue(a: &amp;oneStr, b: &amp;twoStr)</div><div class="line"><span class="built_in">print</span>(oneStr,twoStr)</div></pre></td></tr></table></figure>
-<h2 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h2><p>在上面的泛型函数例子中，占位符T是类型参数的一个例子。类型参数指定并命名一个占位符类型，并用&lt;&gt;包裹，放在函数名后面。一旦一个参数类型确定，就可以指定参数类型，或者返回值的类型，还可以用作函数体的注释类型。在调用的时候会被实际的类型替代，如传递的是Int，就替换为Int，如果传入的是Double类型就替换为Double等等</p>
+        <h3 id="Optional定义"><a href="#Optional定义" class="headerlink" title="Optional定义"></a>Optional定义</h3><p>Optional是在Swift中引入的新类型，特点是可以有值，也没有没有值，没有值为nil。Optional其实就是一个枚举：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">public enum Optional&lt;Wrapped&gt; : ExpressibleByNilLiteral &#123;</div><div class="line"></div><div class="line">    <span class="keyword">case</span> none</div><div class="line">    <span class="keyword">case</span> some(Wrapped)</div><div class="line"></div><div class="line">    public init(_ some: Wrapped)</div><div class="line">    public func map&lt;U&gt;(_ transform: (Wrapped) throws -&gt; U) rethrows -&gt; U?</div><div class="line">    public func flatMap&lt;U&gt;(_ transform: (Wrapped) throws -&gt; U?) rethrows -&gt; U?</div><div class="line">    public init(nilLiteral: ())</div><div class="line">    public var unsafelyUnwrapped: Wrapped &#123; get &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当Optional没有值时，返回的nil其实就是Optional.None，即没有值。除了None以外，还有一个Some，当有值时就是被Some<t>包装的真正的值，所以我们拆包的动作其实就是将Some里面的值取出来。</t></p>
+<h3 id="Optional使用"><a href="#Optional使用" class="headerlink" title="Optional使用"></a>Optional使用</h3><p>我们可以声明一个 Optional 的 String 类型的变量，只需要在变量定义的时候在类型后面加上一个 ?</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var optionalString: String?</div></pre></td></tr></table></figure>
+<p>在引用的时候，我们需要强制拆包，在变量后面添加一个 ! ，相当于告诉编译器，我确信这个变量不是 nil，可以直接使用（当然，使用强制解包只代表你自己确认它不为 nil，但它还是有可能为 nil 的，如果这样的情况发生，依然会造成程序运行时崩溃）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(optionalString!)</div></pre></td></tr></table></figure></p>
+<p>使用 if let 这样的语法就可以更加安全的操作 Optional 值。只有在 name 中的值不为 nil 的时候，nameValue 变量才会被初始化成功。 这样我们的 print 语句就不会因为 nil 而崩溃。相比使用强制解包，更加安全和优雅的方式是使用 Optional Chaining：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">let</span> newValue = optionalString &#123;</div><div class="line">    <span class="built_in">print</span>(newValue)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Optional-Chaning-陷阱"><a href="#Optional-Chaning-陷阱" class="headerlink" title="Optional Chaning 陷阱"></a>Optional Chaning 陷阱</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">struct Name &#123;</div><div class="line">    var firstName: String = <span class="string">""</span></div><div class="line">    var lastName: String = <span class="string">""</span></div><div class="line">&#125;</div><div class="line"></div><div class="line">struct Person &#123;</div><div class="line">    var name: Name?</div><div class="line">    var age: Int</div><div class="line">&#125;</div><div class="line"></div><div class="line">var person: Person? = Person(name: Name(firstName: <span class="string">"roy"</span>, lastName: <span class="string">"wang"</span>), age: 25)</div><div class="line"><span class="built_in">print</span>(person?.name?.firstName)</div></pre></td></tr></table></figure>
+<p>上面的输入结果是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Optional(<span class="string">"roy"</span>)</div></pre></td></tr></table></figure></p>
+<p>firstName不是可选类型，为什么输出结果是这样呢。因为在表达式中只要有一个是可选值，整个表达式结果都是Optional。<br>如果person为nil，后面的引用就没有了意义，所以我们需要对这个表达式做处理。正确的引用方式应该是这样的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="built_in">let</span> firstName = person?.name?.firstName &#123;</div><div class="line">    <span class="built_in">print</span>(firstName)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Optional Chaning 作为返回值也需要注意，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func getName(person: Person) -&gt; String &#123;</div><div class="line">    <span class="built_in">return</span> person.name?.firstName</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>上面的代码不会通过编辑，因为返回值是Optional Chaning，所以下面的才是正确的打开方式：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">func getName(person: Person) -&gt; String? &#123;</div><div class="line">    <span class="built_in">return</span> person.name?.firstName</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">class WebViewDelegate :NSObject, UIWebViewDelegate &#123;</div><div class="line">    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -&gt; Bool &#123;</div><div class="line">        <span class="keyword">if</span> <span class="built_in">let</span> absURL = request.URL?.absoluteString &#123;</div><div class="line">            // <span class="keyword">do</span> something..</div><div class="line">            <span class="built_in">return</span> <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">        <span class="built_in">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不要天真的这样使用,编译会出错的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> request.URL?.absoluteString == <span class="string">"xxx"</span> &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="为什么要有Optional"><a href="#为什么要有Optional" class="headerlink" title="为什么要有Optional"></a>为什么要有Optional</h3><p>因为Swift是强类型语言。引入 Optional 机制是为了「更严格的」类型检查，使得在编译时可以发现更多问题（未预期的变量为空）。</p>
 
       
     </div>
@@ -421,7 +422,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/Generic/" rel="tag"># Generic</a>
+            <a href="/tags/Optional/" rel="tag"># Optional</a>
           
         </div>
       
@@ -434,18 +435,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/18/Swift-Navi-Title-Offset/" rel="next" title="Swift Navi Title Offset">
-                <i class="fa fa-chevron-left"></i> Swift Navi Title Offset
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/17/Swift-UnderLine/" rel="prev" title="Swift Underline">
-                Swift Underline <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/19/Swift-Singleton/" rel="prev" title="Swift Singleton">
+                Swift Singleton <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -575,7 +572,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是泛型？"><span class="nav-number">1.</span> <span class="nav-text">什么是泛型？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#以下面两个例子说明什么是泛型"><span class="nav-number">1.1.</span> <span class="nav-text">以下面两个例子说明什么是泛型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两值是否相等问题"><span class="nav-number">1.2.</span> <span class="nav-text">两值是否相等问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两值交换问题"><span class="nav-number">1.3.</span> <span class="nav-text">两值交换问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型参数"><span class="nav-number">2.</span> <span class="nav-text">类型参数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional定义"><span class="nav-number">1.</span> <span class="nav-text">Optional定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional使用"><span class="nav-number">2.</span> <span class="nav-text">Optional使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optional-Chaning-陷阱"><span class="nav-number">3.</span> <span class="nav-text">Optional Chaning 陷阱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实际应用"><span class="nav-number">4.</span> <span class="nav-text">实际应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要有Optional"><span class="nav-number">5.</span> <span class="nav-text">为什么要有Optional</span></a></li></ol></div>
             
 
           </div>
