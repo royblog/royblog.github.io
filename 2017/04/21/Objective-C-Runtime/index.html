@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo,Github," />
+  <meta name="keywords" content="iOS,OC,Runtime," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
-<meta name="keywords" content="Hexo,Github">
+<meta name="description" content="Objective-C Runtime是一个运行时库（Rumtime Library）,可以理解为一个运行时系统。主要使用C语言和汇编语言编写。 Objective-C如何和Runtime打交道？ 通过Objective-C源代码（Objective-C Source Code） 通过Foundation框架中的NSObject定义的方法（NSObject Methods） 通过直接调用runti">
+<meta name="keywords" content="iOS,OC,Runtime">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/04/12/hello-world/index.html">
+<meta property="og:title" content="Objective-C Runtime">
+<meta property="og:url" content="http://yoursite.com/2017/04/21/Objective-C-Runtime/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
-<meta property="og:updated_time" content="2017-04-14T12:47:48.000Z">
+<meta property="og:description" content="Objective-C Runtime是一个运行时库（Rumtime Library）,可以理解为一个运行时系统。主要使用C语言和汇编语言编写。 Objective-C如何和Runtime打交道？ 通过Objective-C源代码（Objective-C Source Code） 通过Foundation框架中的NSObject定义的方法（NSObject Methods） 通过直接调用runti">
+<meta property="og:updated_time" content="2017-04-21T03:51:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。 为什么要开通博客？ 记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。 分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享">
+<meta name="twitter:title" content="Objective-C Runtime">
+<meta name="twitter:description" content="Objective-C Runtime是一个运行时库（Rumtime Library）,可以理解为一个运行时系统。主要使用C语言和汇编语言编写。 Objective-C如何和Runtime打交道？ 通过Objective-C源代码（Objective-C Source Code） 通过Foundation框架中的NSObject定义的方法（NSObject Methods） 通过直接调用runti">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/12/hello-world/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/21/Objective-C-Runtime/"/>
 
 
 
 
 
-  <title> Hello World | Roy's Note </title>
+  <title> Objective-C Runtime | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/12/hello-world/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/21/Objective-C-Runtime/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Hello World
+                Objective-C Runtime
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T20:53:39+08:00">
-                2017-04-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-21T09:17:10+08:00">
+                2017-04-21
               </time>
             
 
@@ -339,8 +339,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mind/" itemprop="url" rel="index">
-                    <span itemprop="name">Mind</span>
+                  <a href="/categories/OC/" itemprop="url" rel="index">
+                    <span itemprop="name">OC</span>
                   </a>
                 </span>
 
@@ -374,18 +374,18 @@
       
 
       
-        <p>对于一枚码农，刚接触编程的时候，写的第一行代码，很有可能是打印“Hello World”，今天使用Github+Hexo实现了一个简易的博客，就用Hello World和大家打声招呼吧。</p>
-<h2 id="为什么要开通博客？"><a href="#为什么要开通博客？" class="headerlink" title="为什么要开通博客？"></a>为什么要开通博客？</h2><ul>
-<li>记录，好记性不如写博客，不管是平时的学习笔记，突然来的灵感，还是思考的一些心得体会，都可以记录下来，方便以后查阅。</li>
-<li>分享，写日记是私有行为，写博客公有属性，把自己的一些经历或经验和大家一起分享，说不定你的分享对于某一个人大有裨益。</li>
-<li>交流，把自己的思想和大家分享，别人对此评头论足一定是好事，人有局限性，汇聚更多的思想，才能将局限缩小。</li>
+        <p>Objective-C Runtime是一个运行时库（Rumtime Library）,可以理解为一个运行时系统。主要使用C语言和汇编语言编写。</p>
+<h3 id="Objective-C如何和Runtime打交道？"><a href="#Objective-C如何和Runtime打交道？" class="headerlink" title="Objective-C如何和Runtime打交道？"></a>Objective-C如何和Runtime打交道？</h3><ul>
+<li>通过Objective-C源代码（Objective-C Source Code）</li>
+<li>通过Foundation框架中的NSObject定义的方法（NSObject Methods）</li>
+<li>通过直接调用runtime函数(Runtime Funcations)</li>
 </ul>
-<h2 id="有这么多开放平台，为什么要自己动手搭建博客？"><a href="#有这么多开放平台，为什么要自己动手搭建博客？" class="headerlink" title="有这么多开放平台，为什么要自己动手搭建博客？"></a>有这么多开放平台，为什么要自己动手搭建博客？</h2><ol>
-<li>自己动手，丰衣足食。</li>
-<li>作为技术开发，没有自己的博客，总感觉人生缺少点什么。</li>
-<li>有很多开源的博客，搭建博客的时间成本，技术成本，经济成本都很低。</li>
-<li>可以装逼，这点很重要。</li>
-</ol>
+<h3 id="Objective-C-Source-Code"><a href="#Objective-C-Source-Code" class="headerlink" title="Objective-C Source Code"></a>Objective-C Source Code</h3><p>在大部分情况下，运行时系统（Runtime System）能够在幕后自动处理相关任务，我们仅仅需要写Objective-C代码就可以。<br>当我们编译包含Objective-C类和方法的代码时，编译器创建数据结构和函数调用实现语言的动态性特征。其中比较重要的一个运行时机制是<code>消息机制</code>。</p>
+<h4 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h4><p>消息机制的大致流程为：<br>首先，Runtime系统将方法调用转化为消息发送，会把<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[receive message];</div></pre></td></tr></table></figure></p>
+<p>转化为一个消息函数objc_msgSend：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(receiver, selector)</div></pre></td></tr></table></figure></p>
+<p>如果含有参数，则为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">objc_msgSend(receiver, selector, arg1, arg2, ...)</div></pre></td></tr></table></figure></p>
+<p>此时方法调用会通过isa指针找到所属的类，然后检查是否存在相关方法，会先检查缓存中是否有方法（为了提高性能，runtime system 会缓存使用到的selector和方法地址），找到就直接调用方法。如果没有找到，会通过super_class查找父类，如果知道NSObject都没有找到，也没有做任何处理，程序会崩溃，为了防止程序崩溃，可以做消息转发。<br><a href="http://roywyg.oss-cn-shanghai.aliyuncs.com/Image/%E5%B1%8F%E5%B9%95%E5%BF%AB%E7%85%A7%202017-04-21%20%E4%B8%8A%E5%8D%8811.44.20.png" target="_blank" rel="external">消息机制</a></p>
+<h4 id="消息转发"><a href="#消息转发" class="headerlink" title="消息转发"></a>消息转发</h4><p>发送的消息没有被处理，程序就会出错，然而在出错前，运行时机制能给接受对象一个机会处理消息。</p>
 
       
     </div>
@@ -415,9 +415,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/Github/" rel="tag"># Github</a>
+            <a href="/tags/OC/" rel="tag"># OC</a>
+          
+            <a href="/tags/Runtime/" rel="tag"># Runtime</a>
           
         </div>
       
@@ -430,15 +432,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/13/Swift-Start/" rel="next" title="Swift Start">
-                <i class="fa fa-chevron-left"></i> Swift Start
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/20/Swift-Runtime/" rel="prev" title="Swift Runtime">
+                Swift Runtime <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -567,7 +569,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要开通博客？"><span class="nav-number">1.</span> <span class="nav-text">为什么要开通博客？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#有这么多开放平台，为什么要自己动手搭建博客？"><span class="nav-number">2.</span> <span class="nav-text">有这么多开放平台，为什么要自己动手搭建博客？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C如何和Runtime打交道？"><span class="nav-number">1.</span> <span class="nav-text">Objective-C如何和Runtime打交道？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Objective-C-Source-Code"><span class="nav-number">2.</span> <span class="nav-text">Objective-C Source Code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#消息机制"><span class="nav-number">2.1.</span> <span class="nav-text">消息机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息转发"><span class="nav-number">2.2.</span> <span class="nav-text">消息转发</span></a></li></ol></li></ol></div>
             
 
           </div>
