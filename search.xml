@@ -40,14 +40,14 @@
     <entry>
       <title><![CDATA[Swift Singleton]]></title>
       <url>%2F2017%2F04%2F19%2FSwift-Singleton%2F</url>
-      <content type="text"><![CDATA[单例必须是唯一的，在程序生命周期中只能存在一个这样的实例。为保证单例的唯一性，单例类的初始化方法必须是私有的。这样就可以避免其他对象通过单例类创建额外的实例。为保证在整个程序的生命周期中值有一个实例被创建，单例必须是线程安全的。 在Swift中单例实现比较简单：1234class TheOneAndOnly &#123;static let shareInstance = TheOneAndOnly()private init() &#123;&#125;&#125; 全局变量（还有结构体和枚举体的静态成员）的Lazy初始化方法会在其被访问的时候调用一次。类似于调用’dispatch_once’以保证其初始化的原子性。这样就有了一种很酷的’单次调用’方式：只声明一个全局变量和私有的初始化方法即可。]]></content>
+      <content type="text"><![CDATA[单例必须是唯一的，在程序生命周期中只能存在一个这样的实例。为保证单例的唯一性，单例类的初始化方法必须是私有的。这样就可以避免其他对象通过单例类创建额外的实例。为保证在整个程序的生命周期中值有一个实例被创建，单例必须是线程安全的。 在Swift中单例实现比较简单：1234class TheOneAndOnly &#123; static let shareInstance = TheOneAndOnly() private init() &#123;&#125;&#125; 全局变量（还有结构体和枚举体的静态成员）的Lazy初始化方法会在其被访问的时候调用一次。类似于调用’dispatch_once’以保证其初始化的原子性。这样就有了一种很酷的’单次调用’方式：只声明一个全局变量和私有的初始化方法即可。]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift GCD]]></title>
       <url>%2F2017%2F04%2F19%2FSwift-GCD%2F</url>
-      <content type="text"><![CDATA[GCDGrand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。 基本概念 进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间 线程：线程是进程中一个独立的执行路径(控制单元);一个进程中至少包含一条线程，即主线程 队列：是管理线程的，相当于线程池,能管理线程什么时候执行。无论什么队列和任务，线程的创建和回收不需要程序员操作，由队列负责。 串行队列：队列中的任务只会顺序执行。 并行队列：队列中的任务通常会并发执行。 全局队列：是系统的，与并行队列类似，但调试时，无法确认操作所在队列 主队列：每一个应用程序对应唯一一个主队列，在多线程开发中，使用主队列更新UI。 串行队列同步：操作不会新建线程、操作顺序执行。 串行队列异步：操作需要一个子线程，会新建线程、线程的创建和回收不需要程序员参与，操作顺序执行，“最安全的选择”。 并行队列同步：操作不会新建线程、操作顺序执行。 并行队列异步：操作会新建多个线程（有多少任务，就开N个线程执行）、操作无序执行；队列前如果有其他任务，会等待前面的任务完成之后再执行；场景：既不影响主线程，又不需要顺序执行的操作！ 全局队列异步：操作会新建多个线程、操作无序执行，队列前如果有其他任务，会等待前面的任务完成之后再执行。 全局队列同步：操作不会新建线程、操作顺序执行。 主队列：操作在主线程上顺序执行，不存在异步。 图说概念 串行队列 并行队列 全局队列 同步 不创建线程，顺序执行 不创建线程，顺序执行 不创建线程，顺序执行 异步 创建一个线程，顺序执行 创建多个线程，并发执行 创建多个线程，并发执行 代码示例在我们使用多线程的时候，主要是处理并发事件，使用下面的代码能够解决大部分场景：12345678DispatchQueue.global().async &#123;print("开始执行异步任务")Thread.sleep(forTimeInterval: 2)print("异步任务执行完毕")DispatchQueue.main.async &#123;print("回到UI线程")&#125;&#125;]]></content>
+      <content type="text"><![CDATA[GCDGrand Central Dispatch (GCD)是Apple开发的一个多核编程的较新的解决方法。它主要用于优化应用程序以支持多核处理器以及其他对称多处理系统。它是一个在线程池模式的基础上执行的并行任务。在Mac OS X 10.6雪豹中首次推出，也可在IOS 4及以上版本使用。 基本概念 进程：正在进行中的程序被称为进程，负责程序运行的内存分配;每一个进程都有自己独立的虚拟内存空间 线程：线程是进程中一个独立的执行路径(控制单元);一个进程中至少包含一条线程，即主线程 队列：是管理线程的，相当于线程池,能管理线程什么时候执行。无论什么队列和任务，线程的创建和回收不需要程序员操作，由队列负责。 串行队列：队列中的任务只会顺序执行。 并行队列：队列中的任务通常会并发执行。 全局队列：是系统的，与并行队列类似，但调试时，无法确认操作所在队列 主队列：每一个应用程序对应唯一一个主队列，在多线程开发中，使用主队列更新UI。 串行队列同步：操作不会新建线程、操作顺序执行。 串行队列异步：操作需要一个子线程，会新建线程、线程的创建和回收不需要程序员参与，操作顺序执行，“最安全的选择”。 并行队列同步：操作不会新建线程、操作顺序执行。 并行队列异步：操作会新建多个线程（有多少任务，就开N个线程执行）、操作无序执行；队列前如果有其他任务，会等待前面的任务完成之后再执行；场景：既不影响主线程，又不需要顺序执行的操作！ 全局队列异步：操作会新建多个线程、操作无序执行，队列前如果有其他任务，会等待前面的任务完成之后再执行。 全局队列同步：操作不会新建线程、操作顺序执行。 主队列：操作在主线程上顺序执行，不存在异步。 图说概念 串行队列 并行队列 全局队列 同步 不创建线程，顺序执行 不创建线程，顺序执行 不创建线程，顺序执行 异步 创建一个线程，顺序执行 创建多个线程，并发执行 创建多个线程，并发执行 代码示例在我们使用多线程的时候，主要是处理并发事件，使用下面的代码能够解决大部分场景：12345678DispatchQueue.global().async &#123; print("开始执行异步任务") Thread.sleep(forTimeInterval: 2) print("异步任务执行完毕") DispatchQueue.main.async &#123; print("回到UI线程") &#125;&#125;]]></content>
     </entry>
 
     
@@ -61,42 +61,42 @@
     <entry>
       <title><![CDATA[Swift Define]]></title>
       <url>%2F2017%2F04%2F18%2FSwift-Define%2F</url>
-      <content type="text"><![CDATA[宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight [UIScreen mainScreen].bounds.size.height#define kScreenWidth [UIScreen mainScreen].bounds.size.width 在Swift中 12let kScreenHeight = UIScreen.mainScreen().bounds.size.heightlet kScreenWidth = UIScreen.mainScreen().bounds.size.width 接收参数的宏在OC中 1#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1] 在Swift中 1234func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor&#123;return UIColor(red: (r)/255.0, green: (g)/255.0, blue: &#125;]]></content>
+      <content type="text"><![CDATA[宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight [UIScreen mainScreen].bounds.size.height#define kScreenWidth [UIScreen mainScreen].bounds.size.width 在Swift中 12let kScreenHeight = UIScreen.mainScreen().bounds.size.heightlet kScreenWidth = UIScreen.mainScreen().bounds.size.width 接收参数的宏在OC中 1#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1] 在Swift中 1234func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor&#123; return UIColor(red: (r)/255.0, green: (g)/255.0, blue: &#125;]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift Lock]]></title>
       <url>%2F2017%2F04%2F18%2FSwift-Lock%2F</url>
-      <content type="text"><![CDATA[在不同线程中安全的访问同一资源，需要为资源加上线程锁，否则多个线程访问同一资源，会导致结果不可预测。在OC中使用@synchronized为资源加锁，但是在Swift中这个方法已经不存在了。@synchronized幕后所做的工作是调用objc_sync中的objc_sync_enter和objc_sync_exit方法。在Swift中lock一个变量可以使用：1234func myMethod(anObj: AnyObject!) &#123;objc_sync_enter(anObj)//在enter 和 exit 之间 anObj不会被其它线程改变objc_sync_exit(anObj) 加锁和解锁都需要消耗性能，我们不可能为所有方法都加上锁，并且在App中涉及多线程部分有限，也没有必要为所有东西加锁。过多的锁没有意义，不但会消耗性能，也有可能会导致死锁问题。在处理多线程时，尽量保持简单。 Swift Lock]]></content>
+      <content type="text"><![CDATA[在不同线程中安全的访问同一资源，需要为资源加上线程锁，否则多个线程访问同一资源，会导致结果不可预测。在OC中使用@synchronized为资源加锁，但是在Swift中这个方法已经不存在了。@synchronized幕后所做的工作是调用objc_sync中的objc_sync_enter和objc_sync_exit方法。在Swift中lock一个变量可以使用：12345func myMethod(anObj: AnyObject!) &#123; objc_sync_enter(anObj) //在enter 和 exit 之间 anObj不会被其它线程改变 objc_sync_exit(anObj)&#125; 加锁和解锁都需要消耗性能，我们不可能为所有方法都加上锁，并且在App中涉及多线程部分有限，也没有必要为所有东西加锁。过多的锁没有意义，不但会消耗性能，也有可能会导致死锁问题。在处理多线程时，尽量保持简单。 Swift Lock]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift Add Variable For A Exist Class]]></title>
       <url>%2F2017%2F04%2F18%2FSwift-Add-Variable-For-A-Exist-Class%2F</url>
-      <content type="text"><![CDATA[在Swift中如何为一个存在的类添加变量，新建一个Person.swift文件，代码如下：12345678import Foundationclass Person: NSObject &#123;var name: NSString?func eatFood() -&gt; Void &#123;print("People can eat")&#125;&#125; 现在新建PersonExtension.swift，代码如下： 123456789101112131415import Foundationprivate var key: Void?extension Person &#123;var gender: String? &#123;get &#123;return objc_getAssociatedObject(self, &amp;key) as? String&#125;set &#123;return objc_setAssociatedObject(self, &amp;key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)&#125;&#125;&#125; 现在我们则为Person新添加了一个变量,可以使用一下代码访问新变量 1234let per = Person()per.name = "roy"per.gender = "boy"per.eatFood()]]></content>
+      <content type="text"><![CDATA[在Swift中如何为一个存在的类添加变量，新建一个Person.swift文件，代码如下：12345678import Foundationclass Person: NSObject &#123; var name: NSString? func eatFood() -&gt; Void &#123; print("People can eat") &#125;&#125; 现在新建PersonExtension.swift，代码如下： 123456789101112131415import Foundationprivate var key: Void?extension Person &#123; var gender: String? &#123; get &#123; return objc_getAssociatedObject(self, &amp;key) as? String &#125; set &#123; return objc_setAssociatedObject(self, &amp;key, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) &#125; &#125;&#125; 现在我们则为Person新添加了一个变量,可以使用一下代码访问新变量 1234let per = Person()per.name = "roy"per.gender = "boy"per.eatFood()]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift Navi Title Offset]]></title>
       <url>%2F2017%2F04%2F18%2FSwift-Navi-Title-Offset%2F</url>
-      <content type="text"><![CDATA[在iOS中，导航栏的标题有时不居中显示，问题的原因是前一个导航页面标题太长，进入下一个界面的时候，下个界面的标题会向后偏移，导致标题不居中显示。问题的解决方案有多种，在此说一下我的解决方案，因为项目中有基类控制器，在基类控制器的viewDidLoad方法中，添加以下代码：1234567891011NSArray *viewControllerArray = [self.navigationController viewControllers];long previousViewControllerIndex = [viewControllerArray indexOfObject:self] - 1;UIViewController *previous;if (previousViewControllerIndex &gt;= 0) &#123;previous = [viewControllerArray objectAtIndex:previousViewControllerIndex];previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@""style:UIBarButtonItemStylePlaintarget:selfaction:nil];&#125;]]></content>
+      <content type="text"><![CDATA[在iOS中，导航栏的标题有时不居中显示，问题的原因是前一个导航页面标题太长，进入下一个界面的时候，下个界面的标题会向后偏移，导致标题不居中显示。问题的解决方案有多种，在此说一下我的解决方案，因为项目中有基类控制器，在基类控制器的viewDidLoad方法中，添加以下代码：1234567891011NSArray *viewControllerArray = [self.navigationController viewControllers];long previousViewControllerIndex = [viewControllerArray indexOfObject:self] - 1;UIViewController *previous;if (previousViewControllerIndex &gt;= 0) &#123; previous = [viewControllerArray objectAtIndex:previousViewControllerIndex]; previous.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:nil];&#125;]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift Generic Base]]></title>
       <url>%2F2017%2F04%2F17%2FSwift-Generic-Base%2F</url>
-      <content type="text"><![CDATA[Swift创始人Chirs Lattner: 1Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。 什么是泛型？以下面两个例子说明什么是泛型 两值是否相等问题 两值交换问题 两值是否相等问题判断两值是否相等我们的常规思路如下： 123456789func equalInt(numOne: Int, numbTwo: Int) -&gt; Bool &#123;return numOne == numbTwo&#125;equalInt(numOne: 4, numbTwo: 4)func equalString(strOne: String, strTwo: String) -&gt; Bool &#123;return strOne == strTwo&#125;equalString(strOne: "roy", strTwo: "note") 我们需要为每一种类型写一种方法，一句话总结就是写的很不爽，下面就该泛型登场了 123456789func isEquals&lt;T: Comparable&gt;(a: inout T, b: inout T) -&gt; Bool &#123;return (a == b)&#125;var num1 = 5var num2 = 5var str1 = "wyg"var str2 = "roy"isEquals(a: &amp;num1, b: &amp;num2)isEquals(a: &amp;str1, b: &amp;str2) 并不是所有的类型都具有可比性，必须遵守Comparable协议，在Swift中，基本数据类型和字符串都遵守Comparable协议。 两值交换问题有了上面例子铺垫，直接使用泛型来实现 12345678910func swapTwoValue&lt;T&gt;(a: inout T, b: inout T) &#123;let tempValue = aa = bb = tempValue&#125;var oneStr = "hello"var twoStr = "world"swapTwoValue(a: &amp;oneStr, b: &amp;twoStr)print(oneStr,twoStr) 类型参数在上面的泛型函数例子中，占位符T是类型参数的一个例子。类型参数指定并命名一个占位符类型，并用&lt;&gt;包裹，放在函数名后面。一旦一个参数类型确定，就可以指定参数类型，或者返回值的类型，还可以用作函数体的注释类型。在调用的时候会被实际的类型替代，如传递的是Int，就替换为Int，如果传入的是Double类型就替换为Double等等]]></content>
+      <content type="text"><![CDATA[Swift创始人Chirs Lattner: 1Swift引入泛型和函数式编程的思想，极大地扩展了设计的空间。 什么是泛型？以下面两个例子说明什么是泛型 两值是否相等问题 两值交换问题 两值是否相等问题判断两值是否相等我们的常规思路如下： 123456789func equalInt(numOne: Int, numbTwo: Int) -&gt; Bool &#123; return numOne == numbTwo&#125;equalInt(numOne: 4, numbTwo: 4)func equalString(strOne: String, strTwo: String) -&gt; Bool &#123; return strOne == strTwo&#125;equalString(strOne: "roy", strTwo: "note") 我们需要为每一种类型写一种方法，一句话总结就是写的很不爽，下面就该泛型登场了 123456789func isEquals&lt;T: Comparable&gt;(a: inout T, b: inout T) -&gt; Bool &#123; return (a == b)&#125;var num1 = 5var num2 = 5var str1 = "wyg"var str2 = "roy"isEquals(a: &amp;num1, b: &amp;num2)isEquals(a: &amp;str1, b: &amp;str2) 并不是所有的类型都具有可比性，必须遵守Comparable协议，在Swift中，基本数据类型和字符串都遵守Comparable协议。 两值交换问题有了上面例子铺垫，直接使用泛型来实现 12345678910func swapTwoValue&lt;T&gt;(a: inout T, b: inout T) &#123; let tempValue = a a = b b = tempValue&#125;var oneStr = "hello"var twoStr = "world"swapTwoValue(a: &amp;oneStr, b: &amp;twoStr)print(oneStr,twoStr) 类型参数在上面的泛型函数例子中，占位符T是类型参数的一个例子。类型参数指定并命名一个占位符类型，并用&lt;&gt;包裹，放在函数名后面。一旦一个参数类型确定，就可以指定参数类型，或者返回值的类型，还可以用作函数体的注释类型。在调用的时候会被实际的类型替代，如传递的是Int，就替换为Int，如果传入的是Double类型就替换为Double等等]]></content>
     </entry>
 
     
     <entry>
       <title><![CDATA[Swift Underline]]></title>
       <url>%2F2017%2F04%2F17%2FSwift-UnderLine%2F</url>
-      <content type="text"><![CDATA[在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, "Not Found")let(_, errorMessage) = http404Error 3.忽略区间值123456let base = 3let power = 10var answer = 1for _ in 1...power &#123; answer *= base&#125; 4.忽略外部参数名123456789func cal(num1: Int, num2: Int) -&gt; Int &#123;return num1 + num2&#125;cal(num1: 15, num2: 15)func sum(_ num1: Int, _ num2: Int) -&gt; Int &#123;return num1 + num2&#125;sum(15, 15) 参考：@Author:twlkyao]]></content>
+      <content type="text"><![CDATA[在Swift中下划线用途多样，下面列举几种常见用法。 1.格式化数字字面量提高数字字面量的可读性。1let oneMillion = 1_000_000 //(is equal to 1,000,000) 2.忽略元组元素值使用元组时，有元素不必使用时，可以使用下划线将元素忽略。12let http404Error = (404, "Not Found")let(_, errorMessage) = http404Error 3.忽略区间值123456let base = 3let power = 10var answer = 1for _ in 1...power &#123; answer *= base&#125; 4.忽略外部参数名123456789func cal(num1: Int, num2: Int) -&gt; Int &#123; return num1 + num2&#125;cal(num1: 15, num2: 15)func sum(_ num1: Int, _ num2: Int) -&gt; Int &#123; return num1 + num2&#125;sum(15, 15) 参考：@Author:twlkyao]]></content>
     </entry>
 
     

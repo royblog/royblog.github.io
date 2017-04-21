@@ -94,7 +94,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/04/18/Swift-Define/index.html">
 <meta property="og:site_name" content="Roy's Note">
 <meta property="og:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
-<meta property="og:updated_time" content="2017-04-18T09:37:06.000Z">
+<meta property="og:updated_time" content="2017-04-21T06:37:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift Define">
 <meta name="twitter:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
@@ -382,7 +382,7 @@
 <h3 id="接收参数的宏"><a href="#接收参数的宏" class="headerlink" title="接收参数的宏"></a>接收参数的宏</h3><p>在OC中</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]</span></div></pre></td></tr></table></figure>
 <p>在Swift中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor</div><div class="line">&#123;</div><div class="line"><span class="built_in">return</span> UIColor(red: (r)/255.0, green: (g)/255.0, blue: </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor</div><div class="line">&#123;</div><div class="line">    <span class="built_in">return</span> UIColor(red: (r)/255.0, green: (g)/255.0, blue: </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
