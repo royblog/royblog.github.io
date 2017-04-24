@@ -3,9 +3,16 @@
   
     
     <entry>
+      <title><![CDATA[Jinmao Tower Tour]]></title>
+      <url>%2F2017%2F04%2F24%2FJinmao-Tower-Tour%2F</url>
+      <content type="text"><![CDATA[上海滩三大神楼，注射器、开瓶器、打蛋器。趁着春年花开，阳光明媚，和小伙伴去了 Jinmao Tower。 从注射器看打蛋器 从注射器看开瓶器 从注射器看东方明珠 从注射器向下俯瞰 站在注射器上的我 坐在注射器的我]]></content>
+    </entry>
+
+    
+    <entry>
       <title><![CDATA[Swift Class Struct Enum]]></title>
       <url>%2F2017%2F04%2F24%2FSwift-Class-Struct-Enum%2F</url>
-      <content type="text"><![CDATA[相同点：]]></content>
+      <content type="text"><![CDATA[相同点： 三者都可以拥有属性和方法（enum本身不能存储属性，但是可以存储在其关联的信息中，可以有计算属性）。 都可以拥有函数。 class和struc可以拥有自己的构造器。 不同点： 类可以继承。 类可以内省和转化。 struct和enum为值类型，class为引用类型。 class类方法用class关键字声明，enum、struct用static关键字 用mutaing关键词生命要修改struct、enum内容的方法。 结构体适合基本数据类型。]]></content>
     </entry>
 
     
@@ -110,7 +117,7 @@
     <entry>
       <title><![CDATA[My Family]]></title>
       <url>%2F2017%2F04%2F14%2FMy-Family%2F</url>
-      <content type="text"><![CDATA[本来想实现一个相册，来存储照片，无奈水平比较渣，又懒于查资料整理，就以一种比较丑陋的方式来展示图片，为了防止大家的涂抹星子飞来，我决定不开评论功能了，哈哈，我太明智了。 1能认出我的人，奖励一颗超级无敌泡泡糖。 1杭州爬山。 1和家里小伙伴的合影 1这张是全家福 1这张拍于某年某月某一天的照片]]></content>
+      <content type="text"><![CDATA[用博客存储图片也不错哦。 1能认出我的人，奖励一颗超级无敌泡泡糖。 1杭州爬山。 1和家里小伙伴的合影 1这张是全家福 1这张拍于某年某月某一天的照片]]></content>
     </entry>
 
     
