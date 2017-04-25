@@ -71,7 +71,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="iOS,Swift,Define," />
+  <meta name="keywords" content="iOS,Swift,property," />
 
 
 
@@ -87,17 +87,17 @@
 
 
 
-<meta name="description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
-<meta name="keywords" content="iOS,Swift,Define">
+<meta name="description" content="存储型属性，主要用来存储值，使用实例访问类属性使用对象直接访问，使用static修饰计算型属性，不能直接存储值，使用get/set来取值和赋值，可以操作其它属性的变化 12345678910111213141516171819202122232425262728293031323334353637class Student &amp;#123;        //定义（存储）属性    var name:">
+<meta name="keywords" content="iOS,Swift,property">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Define">
-<meta property="og:url" content="http://yoursite.com/2017/04/18/Swift-Define/index.html">
+<meta property="og:title" content="Swift 存储属性、类属性、计算属性">
+<meta property="og:url" content="http://yoursite.com/2017/04/25/Swift-存储属性、类属性、计算属性/index.html">
 <meta property="og:site_name" content="Roy's Note">
-<meta property="og:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
-<meta property="og:updated_time" content="2017-04-21T06:37:26.000Z">
+<meta property="og:description" content="存储型属性，主要用来存储值，使用实例访问类属性使用对象直接访问，使用static修饰计算型属性，不能直接存储值，使用get/set来取值和赋值，可以操作其它属性的变化 12345678910111213141516171819202122232425262728293031323334353637class Student &amp;#123;        //定义（存储）属性    var name:">
+<meta property="og:updated_time" content="2017-04-25T08:30:30.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Swift Define">
-<meta name="twitter:description" content="宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。 没有参数的宏在OC中 12#define kScreenHeight     [UIScreen mainScreen].bounds.size.height#define kScreenWidth">
+<meta name="twitter:title" content="Swift 存储属性、类属性、计算属性">
+<meta name="twitter:description" content="存储型属性，主要用来存储值，使用实例访问类属性使用对象直接访问，使用static修饰计算型属性，不能直接存储值，使用get/set来取值和赋值，可以操作其它属性的变化 12345678910111213141516171819202122232425262728293031323334353637class Student &amp;#123;        //定义（存储）属性    var name:">
 
 
 
@@ -125,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/04/18/Swift-Define/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/04/25/Swift-存储属性、类属性、计算属性/"/>
 
 
 
 
 
-  <title> Swift Define | Roy's Note </title>
+  <title> Swift 存储属性、类属性、计算属性 | Roy's Note </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -280,7 +280,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/18/Swift-Define/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/25/Swift-存储属性、类属性、计算属性/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王耀国">
@@ -301,7 +301,7 @@
             
             
               
-                Swift Define
+                Swift 存储属性、类属性、计算属性
               
             
           </h1>
@@ -316,8 +316,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T17:19:37+08:00">
-                2017-04-18
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T16:26:10+08:00">
+                2017-04-25
               </time>
             
 
@@ -357,7 +357,7 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a class="cloud-tie-join-count" href="/2017/04/18/Swift-Define/#comments" itemprop="discussionUrl">
+                <a class="cloud-tie-join-count" href="/2017/04/25/Swift-存储属性、类属性、计算属性/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count join-count" itemprop="commentCount"></span>
                 </a>
               </span>
@@ -384,15 +384,8 @@
       
 
       
-        <p>宏定义合理使用能够使代码漂亮简洁，但是使用宏定义有时也会导致难以重构和维护，隐藏很多问题。<br>在Swift中已经去掉了宏定义，并且苹果公司给了一些替代建议，比如使用let和get代替原来的宏定义。</p>
-<h3 id="没有参数的宏"><a href="#没有参数的宏" class="headerlink" title="没有参数的宏"></a>没有参数的宏</h3><p>在OC中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define kScreenHeight     [UIScreen mainScreen].bounds.size.height</span></div><div class="line"><span class="comment">#define kScreenWidth      [UIScreen mainScreen].bounds.size.width</span></div></pre></td></tr></table></figure>
-<p>在Swift中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> kScreenHeight = UIScreen.mainScreen().bounds.size.height</div><div class="line"><span class="built_in">let</span> kScreenWidth = UIScreen.mainScreen().bounds.size.width</div></pre></td></tr></table></figure>
-<h3 id="接收参数的宏"><a href="#接收参数的宏" class="headerlink" title="接收参数的宏"></a>接收参数的宏</h3><p>在OC中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#define RGBCOLOR(r,g,b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1]</span></div></pre></td></tr></table></figure>
-<p>在Swift中</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">func RGBCOLOR(_ r:CGFloat,_ g:CGFloat,_ b:CGFloat) -&gt; UIColor</div><div class="line">&#123;</div><div class="line">    <span class="built_in">return</span> UIColor(red: (r)/255.0, green: (g)/255.0, blue: </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+        <p>存储型属性，主要用来存储值，使用实例访问<br>类属性使用对象直接访问，使用static修饰<br>计算型属性，不能直接存储值，使用get/set来取值和赋值，可以操作其它属性的变化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">class Student &#123;</div><div class="line">    </div><div class="line">    //定义（存储）属性</div><div class="line">    var name: String?</div><div class="line">    var age: Int = 0</div><div class="line">    var gender: String?</div><div class="line">    </div><div class="line">    //定义类属性</div><div class="line">    static var skin: String?</div><div class="line">    </div><div class="line">    //计算属性（get）</div><div class="line">    var doubleAge: Int &#123;</div><div class="line">        <span class="built_in">return</span> age * 2</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    var fiveTime: Int &#123;</div><div class="line">        get &#123;</div><div class="line">            <span class="built_in">return</span> age * 5</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="built_in">set</span>(newValue) &#123;</div><div class="line">            age = newValue + 1</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> stu = Student()</div><div class="line"></div><div class="line">stu.name = <span class="string">"roy"</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">let</span> name = stu.name &#123;</div><div class="line">    <span class="built_in">print</span>(name)</div><div class="line">&#125;</div><div class="line">stu.age = 13</div><div class="line">stu.gender = <span class="string">"boy"</span></div><div class="line">stu.doubleAge</div><div class="line">stu.fiveTime = 23</div><div class="line">stu.fiveTime</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -426,7 +419,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/Define/" rel="tag"># Define</a>
+            <a href="/tags/property/" rel="tag"># property</a>
           
         </div>
       
@@ -439,18 +432,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/04/18/MarkDown-File/" rel="next" title="MarkDown File">
-                <i class="fa fa-chevron-left"></i> MarkDown File
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/04/18/Swift-Lock/" rel="prev" title="Swift Lock">
-                Swift Lock <i class="fa fa-chevron-right"></i>
+              <a href="/2017/04/24/Swift-Extension/" rel="prev" title="Swift Extension">
+                Swift Extension <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -500,17 +489,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.gif"
@@ -572,22 +552,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#没有参数的宏"><span class="nav-number">1.</span> <span class="nav-text">没有参数的宏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接收参数的宏"><span class="nav-number">2.</span> <span class="nav-text">接收参数的宏</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
