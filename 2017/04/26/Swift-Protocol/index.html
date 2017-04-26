@@ -1,0 +1,802 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Swift,Protocol," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="官方概述 协议定义了方法，属性和其它要求的蓝图，以适应特定的任务和功能。协议能够被类、结构体、枚举来实现，满足协议要求的类、枚举、结构体被称为协议的遵守者。翻译官方文档（翻译可能有纰漏）  我的理解： 我们可以定义一些类和方法，只定义不实现，类似于定义了一些接口，但是不处理接口的实现，我们把这些定义的集合暂且称之为协议。类，结构体，枚举等可以遵守这些协议，遵守协议可以获取定义的方法和属性，有一点点">
+<meta name="keywords" content="iOS,Swift,Protocol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Protocol">
+<meta property="og:url" content="http://yoursite.com/2017/04/26/Swift-Protocol/index.html">
+<meta property="og:site_name" content="Roy's Note">
+<meta property="og:description" content="官方概述 协议定义了方法，属性和其它要求的蓝图，以适应特定的任务和功能。协议能够被类、结构体、枚举来实现，满足协议要求的类、枚举、结构体被称为协议的遵守者。翻译官方文档（翻译可能有纰漏）  我的理解： 我们可以定义一些类和方法，只定义不实现，类似于定义了一些接口，但是不处理接口的实现，我们把这些定义的集合暂且称之为协议。类，结构体，枚举等可以遵守这些协议，遵守协议可以获取定义的方法和属性，有一点点">
+<meta property="og:updated_time" content="2017-04-26T06:09:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Swift Protocol">
+<meta name="twitter:description" content="官方概述 协议定义了方法，属性和其它要求的蓝图，以适应特定的任务和功能。协议能够被类、结构体、枚举来实现，满足协议要求的类、枚举、结构体被称为协议的遵守者。翻译官方文档（翻译可能有纰漏）  我的理解： 我们可以定义一些类和方法，只定义不实现，类似于定义了一些接口，但是不处理接口的实现，我们把这些定义的集合暂且称之为协议。类，结构体，枚举等可以遵守这些协议，遵守协议可以获取定义的方法和属性，有一点点">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/26/Swift-Protocol/"/>
+
+
+
+
+
+  <title> Swift Protocol | Roy's Note </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?b5fd22696c9e7f2aca943f29c12353a9";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Roy's Note</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Write and Change</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/26/Swift-Protocol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王耀国">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roy's Note">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Swift Protocol
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-26T10:04:48+08:00">
+                2017-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a class="cloud-tie-join-count" href="/2017/04/26/Swift-Protocol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count join-count" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="官方概述"><a href="#官方概述" class="headerlink" title="官方概述"></a>官方概述</h4><blockquote>
+<p>协议定义了方法，属性和其它要求的蓝图，以适应特定的任务和功能。协议能够被类、结构体、枚举来实现，满足协议要求的类、枚举、结构体被称为协议的遵守者。<a href="https://developer.apple.com/library/content/documentation/Swift/Conceptual/Swift_Programming_Language/Protocols.html#//apple_ref/doc/uid/TP40014097-CH25-ID267" target="_blank" rel="external">翻译官方文档</a>（翻译可能有纰漏）</p>
+</blockquote>
+<h4 id="我的理解："><a href="#我的理解：" class="headerlink" title="我的理解："></a>我的理解：</h4><blockquote>
+<p>我们可以定义一些类和方法，只定义不实现，类似于定义了一些接口，但是不处理接口的实现，我们把这些定义的集合暂且称之为协议。类，结构体，枚举等可以遵守这些协议，遵守协议可以获取定义的方法和属性，有一点点类似继承，但是又有很大不同，协议没有方法实现，只有定义，这有点类似于C++的抽象基类（Abstract Class）。简而言之，协议只定义不实现，可以被其它（类，结构体，枚举）遵守和实现。(理解可能会曲解原意)</p>
+</blockquote>
+<hr>
+<h4 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h4><p>定义协议非常简单，有点类似于类、结构体、枚举的定义<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol SomeProtocol &#123;</div><div class="line">    // Protocol definition goes here</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>自定义类型声明采用特定的协议，将协议名称置于类型名之后，用冒号分隔开，作为他们定义的一部分，可以列举多个协议，中间用逗号隔开。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">struct SomeStructure: FirstProtocol, AnotherProtocol &#123;</div><div class="line">    // structure definition goes here</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果一个类继承父类，将父类放在遵守的协议之前，使用逗号分隔。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">class SomeStructure: SomeSuperclass, FirstProtocol, AnotherProtocol &#123;</div><div class="line">    // class definition goes here</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h4><p>协议要求声明属性声明为变量属性，使用前缀 var 关键字，gettable and settable(可读写) 属性在声明后写 { get set }， gettable 声明类型后写 { get }<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">protocol SomeProtocol &#123;</div><div class="line">    var mustBeSettable: Int &#123; get <span class="built_in">set</span> &#125;</div><div class="line">    var doesNotNeedToBeSettable: Int &#123; get &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>若果是类成员，使用static修饰<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol AnotherProtocol &#123;</div><div class="line">    static var someTypeProperty: Int &#123; get <span class="built_in">set</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>定义一个协议，其中有一个属性fullName，定义一个结构体，遵守协议<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">protocol FullyNamed &#123;</div><div class="line">    var fullName: String &#123; get &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">struct Person: FullyNamed &#123;</div><div class="line">    var fullName: String</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> john = Person(fullName: <span class="string">"John Appleseed"</span>)</div><div class="line"><span class="built_in">print</span>(john.fullName)</div></pre></td></tr></table></figure></p>
+<p>结果是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">John Appleseed</div></pre></td></tr></table></figure></p>
+<p>定义一个更复杂的类，同样遵守FullyNamed协议<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">class Starship: FullyNamed &#123;</div><div class="line">    var prefix: String?</div><div class="line">    var name : String</div><div class="line">    init(name: String, prefix: String? = nil) &#123;</div><div class="line">        self.name = name</div><div class="line">        self.prefix = prefix</div><div class="line">    &#125;</div><div class="line">    var fullName: String &#123;</div><div class="line">        <span class="built_in">return</span> (prefix != nil ? prefix! + <span class="string">" "</span> : <span class="string">""</span>) + name</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var ss1 = Starship(name: <span class="string">"耀国"</span>, prefix: <span class="string">"王"</span>)</div><div class="line"><span class="built_in">print</span>(ss1.fullName)</div><div class="line">var ss2 = Starship(name: <span class="string">"耀国"</span>)</div><div class="line"><span class="built_in">print</span>(ss2.fullName)</div></pre></td></tr></table></figure></p>
+<p>结果是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">王 耀国</div><div class="line">耀国</div></pre></td></tr></table></figure></p>
+<h4 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h4><p>可以在协议中定义方法，如例所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol RandomNumberGenerator &#123;</div><div class="line">    func random() -&gt; Double</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>类方法使用static修饰：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol SomeProtocol &#123;</div><div class="line">    static func someTypeMethod()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>看下面的例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">class LinearCongruentialGenerator: RandomNumberGenerator &#123;</div><div class="line">    var lastRandom = 42.0</div><div class="line">    <span class="built_in">let</span> m = 139968.0</div><div class="line">    <span class="built_in">let</span> a = 3877.0</div><div class="line">    <span class="built_in">let</span> c = 29573.0</div><div class="line">    func random() -&gt; Double &#123;</div><div class="line">        lastRandom = ((lastRandom * a + c).truncatingRemainder(dividingBy: m))</div><div class="line">        <span class="built_in">return</span> lastRandom / m</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> generator = LinearCongruentialGenerator()</div><div class="line"><span class="built_in">print</span>(<span class="string">"Here is a random number: \(generator.random()))"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"And another one: \(generator.random())"</span>)</div></pre></td></tr></table></figure></p>
+<h4 id="突变方法要求"><a href="#突变方法要求" class="headerlink" title="突变方法要求"></a>突变方法要求</h4><p>方法修改实例类型称为突变方法，在结构体和枚举方法中修改需要给方法加上mutating(class不用添加)<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol Togglable &#123;</div><div class="line">    mutating func toggle()</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在枚举中实现此协议<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">enum OnOffSwitch: Togglable &#123;</div><div class="line">    <span class="keyword">case</span> off, on</div><div class="line">    mutating func <span class="function"><span class="title">toggle</span></span>() &#123;</div><div class="line">        switch self &#123;</div><div class="line">        <span class="keyword">case</span> .off:</div><div class="line">            self = .on</div><div class="line">        <span class="keyword">case</span> .on:</div><div class="line">            self = .off</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var lightSwitch = OnOffSwitch.off</div><div class="line">lightSwitch.toggle()</div></pre></td></tr></table></figure></p>
+<h4 id="构造要求"><a href="#构造要求" class="headerlink" title="构造要求"></a>构造要求</h4><p>必须使用required标记构造实现，使用 required 修饰符可以确保所有子类也必须提供此构造器实现，从而也能符合协议。 如果类已经被标记为 final，那么不需要在协议构造器的实现中使用 required 修饰符，因为 final 类不能有子类。关于 final 修饰符的更多内容，请参见防止重写。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">protocol SomeProtocol &#123;</div><div class="line">    init(someParameter: Int)</div><div class="line">&#125;</div><div class="line"></div><div class="line">class SomeClass: SomeProtocol &#123;</div><div class="line">     required init(someParameter: Int) &#123;</div><div class="line">        // initializer implementation goes here</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> c = SomeClass(someParameter: 12)</div></pre></td></tr></table></figure>
+<p>如果一个子类重写了父类的指定构造器，并且该构造器满足了某个协议的要求，那么该构造器的实现需要同时标注 required 和 override 修饰符：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">protocol SomeProtocol &#123;</div><div class="line">    init()</div><div class="line">&#125;</div><div class="line"></div><div class="line">class SomeSuperClass &#123;</div><div class="line">    <span class="function"><span class="title">init</span></span>() &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class SomeSubClass: SomeSuperClass, SomeProtocol &#123;</div><div class="line">    required override <span class="function"><span class="title">init</span></span>() &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="协议作为类型"><a href="#协议作为类型" class="headerlink" title="协议作为类型"></a>协议作为类型</h4><p>尽管协议本身并未实现任何功能，但是协议可以被当做一个成熟的类型来使用。<br>使用场景：</p>
+<ul>
+<li>作为函数、方法或构造器中的参数类型或返回值类型 </li>
+<li>作为常量、变量或属性的类型 </li>
+<li>作为数组、字典或其他容器中的元素类型 </li>
+</ul>
+<blockquote>
+<p>协议是一种类型，因此协议类型的名称应与其他类型（例如 Int，Double，String）的写法相同，使用大写字母开头的驼峰式写法，例如（FullyNamed 和 RandomNumberGenerator）。 </p>
+</blockquote>
+<p>协议作为类型使用例子：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">protocol RandomNumberGenerator &#123;</div><div class="line">    func random() -&gt; Double</div><div class="line">&#125;</div><div class="line"></div><div class="line">class LinearCongruentialGenerator: RandomNumberGenerator &#123;</div><div class="line">    var lastRandom = 42.0</div><div class="line">    <span class="built_in">let</span> m = 139968.0</div><div class="line">    <span class="built_in">let</span> a = 3877.0</div><div class="line">    <span class="built_in">let</span> c = 29573.0</div><div class="line">    func random() -&gt; Double &#123;</div><div class="line">        lastRandom = ((lastRandom * a + c).truncatingRemainder(dividingBy: m))</div><div class="line">        <span class="built_in">return</span> lastRandom / m</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">class Dice &#123;</div><div class="line">    <span class="built_in">let</span> sides: Int</div><div class="line"></div><div class="line">    <span class="built_in">let</span> generator: RandomNumberGenerator</div><div class="line"></div><div class="line">    init(sides: Int, generator: RandomNumberGenerator) &#123;</div><div class="line">        self.sides = sides</div><div class="line">        self.generator = generator</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    func roll() -&gt; Int &#123;</div><div class="line">        <span class="built_in">return</span> Int(generator.random() * Double(sides))</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var d = Dice(sides: 6, generator: LinearCongruentialGenerator())</div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> 1...5 &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Random dice roll is \(d.roll())"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="通过扩展增加协议一致性"><a href="#通过扩展增加协议一致性" class="headerlink" title="通过扩展增加协议一致性"></a>通过扩展增加协议一致性</h4><p>即便无法修改源代码，依然可以通过扩展令已有类型遵循并符合协议。扩展可以为已有类型添加属性、方法、下标以及构造器，因此可以符合协议中的相应要求。<br>例如为声明一个协议，并使得Dice遵守该协议：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">protocol TextRepresentable &#123;</div><div class="line">    var textualDescription: String &#123; get &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">extension Dice: TextRepresentable &#123;</div><div class="line">    var textualDescription: String &#123;</div><div class="line">        <span class="built_in">return</span> <span class="string">"A \(sides)-sided dice"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">let</span> d2 = Dice(sides: 12, generator: LinearCongruentialGenerator())</div><div class="line"><span class="built_in">print</span>(d2.textualDescription)</div></pre></td></tr></table></figure></p>
+<h4 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h4><p>协议类型可以在数组或者字典这样的集合中使用，在协议类型提到了这样的用法。下面的例子创建了一个元素类型为 TextRepresentable 的数组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">let</span> things: [TextRepresentable] = [d, d]</div><div class="line"><span class="keyword">for</span> thing <span class="keyword">in</span> things &#123;</div><div class="line">    <span class="built_in">print</span>(thing.textualDescription)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="协议的继承"><a href="#协议的继承" class="headerlink" title="协议的继承"></a>协议的继承</h4><p>协议能够继承一个或多个其他协议，可以在继承的协议的基础上增加新的要求。协议的继承语法与类的继承相似，多个被继承的协议间用逗号分隔：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol InheritingProtocol: SomeProtocol, AnotherProtocol &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="类类型专属协议"><a href="#类类型专属协议" class="headerlink" title="类类型专属协议"></a>类类型专属协议</h4><p>你可以在协议的继承列表中，通过添加 class 关键字来限制协议只能被类类型遵循，而结构体或枚举不能遵循该协议。class 关键字必须第一个出现在协议的继承列表中，在其他继承的协议之前：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">protocol SomeClassOnlyProtocol: class, SomeInheritedProtocol &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="协议合成"><a href="#协议合成" class="headerlink" title="协议合成"></a>协议合成</h4><p>有时候需要同时遵循多个协议，你可以将多个协议采用 SomeProtocol &amp; AnotherProtocol 这样的格式进行组合，称为 协议合成（protocol composition）。你可以罗列任意多个你想要遵循的协议，以与符号(&amp;)分隔。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">protocol Named &#123;</div><div class="line">    var name: String &#123; get &#125;</div><div class="line">&#125;</div><div class="line">protocol Aged &#123;</div><div class="line">    var age: Int &#123; get &#125;</div><div class="line">&#125;</div><div class="line">struct Person: Named, Aged &#123;</div><div class="line">    var name: String</div><div class="line">    var age: Int</div><div class="line">&#125;</div><div class="line">func wishHappyBirthday(to celebrator: Named &amp; Aged) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"Happy birthday, \(celebrator.name), you're \(celebrator.age)!"</span>)</div><div class="line">&#125;</div><div class="line"><span class="built_in">let</span> birthdayPerson = Person(name: <span class="string">"Malcolm"</span>, age: 21)</div><div class="line">wishHappyBirthday(to: birthdayPerson)</div></pre></td></tr></table></figure></p>
+<h4 id="可选协议要求"><a href="#可选协议要求" class="headerlink" title="可选协议要求"></a>可选协议要求</h4><p>协议可以定义可选要求，遵循协议的类型可以选择是否实现这些要求。在协议中使用 optional 关键字作为前缀来定义可选要求。可选要求用在你需要和 Objective-C 打交道的代码中。协议和可选要求都必须带上@objc属性。标记 @objc 特性的协议只能被继承自 Objective-C 类的类或者 @objc 类遵循，其他类以及结构体和枚举均不能遵循这种协议。 </p>
+<h4 id="协议扩展"><a href="#协议扩展" class="headerlink" title="协议扩展"></a>协议扩展</h4><p>协议可以通过扩展来为遵循协议的类型提供属性、方法以及下标的实现。通过这种方式，你可以基于协议本身来实现这些功能，而无需在每个遵循协议的类型中都重复同样的实现，也无需使用全局函数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">extension RandomNumberGenerator &#123;</div><div class="line">    func randomBool() -&gt; Bool &#123;</div><div class="line">        <span class="built_in">return</span> random() &gt; 0.5</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过协议扩展，所有遵循协议的类型，都能自动获得这个扩展所增加的方法实现，无需任何额外修改： </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/Protocol/" rel="tag"># Protocol</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/25/Swift-存储属性、类属性、计算属性/" rel="prev" title="Swift 存储属性、类属性、计算属性">
+                Swift 存储属性、类属性、计算属性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="王耀国" />
+          <p class="site-author-name" itemprop="name">王耀国</p>
+           
+              <p class="site-description motion-element" itemprop="description">Do something just for not boring</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#官方概述"><span class="nav-number">1.</span> <span class="nav-text">官方概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#我的理解："><span class="nav-number">2.</span> <span class="nav-text">我的理解：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议语法"><span class="nav-number">3.</span> <span class="nav-text">协议语法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#属性要求"><span class="nav-number">4.</span> <span class="nav-text">属性要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法要求"><span class="nav-number">5.</span> <span class="nav-text">方法要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#突变方法要求"><span class="nav-number">6.</span> <span class="nav-text">突变方法要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构造要求"><span class="nav-number">7.</span> <span class="nav-text">构造要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议作为类型"><span class="nav-number">8.</span> <span class="nav-text">协议作为类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过扩展增加协议一致性"><span class="nav-number">9.</span> <span class="nav-text">通过扩展增加协议一致性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议类型的集合"><span class="nav-number">10.</span> <span class="nav-text">协议类型的集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议的继承"><span class="nav-number">11.</span> <span class="nav-text">协议的继承</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#类类型专属协议"><span class="nav-number">12.</span> <span class="nav-text">类类型专属协议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议合成"><span class="nav-number">13.</span> <span class="nav-text">协议合成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可选协议要求"><span class="nav-number">14.</span> <span class="nav-text">可选协议要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#协议扩展"><span class="nav-number">15.</span> <span class="nav-text">协议扩展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王耀国</span>
+</div>
+
+
+<div class="powered-by">
+  WriteAndShare
+</div>
+
+<div class="theme-info">
+  WangYaoGuoBlog -
+</div>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+<span id="busuanzi_container_site_pv">
+    本站总访问量<span id="busuanzi_value_site_pv"></span>次
+</span>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+    
+    <script>
+      var cloudTieConfig = {
+        url: document.location.href, 
+        sourceId: "",
+        productKey: "4986de24bccb4f268ceba6b259677aed",
+        target: "cloud-tie-wrapper"
+      };
+    </script>
+    <script src="https://img1.ws.126.net/f2e/tie/yun/sdk/loader.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>
